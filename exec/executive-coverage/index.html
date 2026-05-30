@@ -35,6 +35,9 @@ body { font:14px/1.45 -apple-system, BlinkMacSystemFont, "SF Pro Display","Segoe
 .toggles { display:flex; gap:8px; margin-bottom:10px; flex-wrap:wrap; }
 .toggles button { background:var(--card); border:1.5px solid #e0e0e0; padding:7px 13px; border-radius:7px; font-weight:600; font-size:.78rem; cursor:pointer; }
 .toggles button.active { background:var(--tupss-blue); color:#fff; border-color:var(--tupss-blue); }
+.filter-bar { margin-bottom: 10px; }
+.filter-bar input { width:100%; padding:10px 14px; font-size:15px; border:1.5px solid #e0e0e0; border-radius:8px; outline:none; background:var(--card); transition:border-color .15s; }
+.filter-bar input:focus { border-color:var(--tupss-blue); }
 .rules { background:var(--card); border-radius:10px; padding:12px 16px; border-left:4px solid var(--tupss-blue); font-size:.78rem; color:var(--ink-soft); line-height:1.6; margin-top:14px; }
 .rules strong { color:#060000; }
 .footnote { font-size:.7rem; color:var(--ink-soft); margin-top:14px; padding:10px 14px; background:var(--card); border-radius:8px; border-left:3px solid var(--tupss-blue); line-height:1.5; }
@@ -62,6 +65,9 @@ body { font:14px/1.45 -apple-system, BlinkMacSystemFont, "SF Pro Display","Segoe
 </div>
 
 <div class="section-h">Assignments</div>
+<div class="filter-bar">
+<input type="search" id="execSearch" placeholder="Filter by exec name (Mike / Chase / Corey)..." autocomplete="off"/>
+</div>
 <div class="toggles" id="storeFilter">
 <button class="active" data-store="all">All stores</button>
 <button data-store="2335">Suburban #2335</button>
@@ -117,12 +123,21 @@ document.getElementById("coreyCnt").textContent = STATIC_STATE.exec_counts.Corey
 document.getElementById("mikeCnt").textContent = STATIC_STATE.exec_counts.Mike;
 document.getElementById("refreshStamp").textContent = "Viewed " + new Date().toLocaleString("en-US", { weekday:"short", month:"short", day:"numeric", hour:"numeric", minute:"2-digit" });
 
+const EXEC_SEARCH_KEY = "fc_exec_coverage_search";
 let activeStore = "all";
 function fmt(d) { const x = new Date(d+"T12:00:00"); return x.toLocaleDateString("en-US",{weekday:"short",month:"numeric",day:"numeric"}); }
 function render() {
-  const list = STATIC_STATE.assignments.filter(a => activeStore === "all" || a.store === activeStore);
+  const q = (document.getElementById("execSearch").value || "").toLowerCase().trim();
+  if (q) localStorage.setItem(EXEC_SEARCH_KEY, q); else localStorage.removeItem(EXEC_SEARCH_KEY);
+  let list = STATIC_STATE.assignments.filter(a => activeStore === "all" || a.store === activeStore);
+  if (q) list = list.filter(a => (a.exec || "").toLowerCase().includes(q));
   list.sort((a,b) => a.date < b.date ? -1 : a.date > b.date ? 1 : 0);
-  document.getElementById("assigns").innerHTML = list.map(a =>
+  const el = document.getElementById("assigns");
+  if (list.length === 0) {
+    el.innerHTML = `<div style="padding:24px;text-align:center;color:var(--ink-soft);font-size:.85rem;">No assignments match the current filter.</div>`;
+    return;
+  }
+  el.innerHTML = list.map(a =>
     `<div class="assign-row"><span class="dt">${fmt(a.date)}</span><span class="store">${STORE_NAMES[a.store]} #${a.store}</span><span class="time">${a.shift}</span><span><span class="exec-chip exec-${a.exec.toLowerCase()}">${a.exec}</span></span></div>`
   ).join("");
 }
@@ -132,6 +147,8 @@ document.querySelectorAll("#storeFilter button").forEach(b => b.addEventListener
   activeStore = b.dataset.store;
   render();
 }));
+document.getElementById("execSearch").addEventListener("input", render);
+document.getElementById("execSearch").value = localStorage.getItem(EXEC_SEARCH_KEY) || "";
 render();
 </script>
 </body>
