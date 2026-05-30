@@ -19,6 +19,12 @@ body { font:14px/1.45 -apple-system, BlinkMacSystemFont, "SF Pro Display","Segoe
 .exec-card.chase .chip { background:var(--tupss-gold); color:#060000; }
 .exec-card.corey .chip { background:#B3E5F2; color:#003040; }
 .exec-card.mike .chip { background:var(--tupss-navy); color:#fff; }
+.exec-card { cursor: pointer; user-select: none; transition: transform .12s, box-shadow .12s; }
+.exec-card:hover { transform: translateY(-1px); box-shadow: 0 3px 8px rgba(0,156,189,.18); }
+.exec-card.active { box-shadow: 0 0 0 3px var(--tupss-blue), 0 1px 3px rgba(0,0,0,.06); }
+.exec-card .lbl-hint { font-size:.6rem; color:var(--ink-soft); margin-top:3px; letter-spacing:.04em; text-transform:uppercase; }
+.exec-card.active .lbl-hint { color: var(--tupss-blue); font-weight:700; }
+
 .exec-card .cnt { font-size:1.5rem; font-weight:800; font-variant-numeric:tabular-nums; }
 .exec-card .lbl { font-size:.68rem; color:var(--ink-soft); text-transform:uppercase; letter-spacing:.04em; margin-top:2px; }
 .section-h { font-size:.78rem; font-weight:800; text-transform:uppercase; letter-spacing:.08em; color:#060000; margin:22px 0 10px; padding-bottom:6px; border-bottom:2px solid var(--tupss-blue); }
@@ -35,9 +41,6 @@ body { font:14px/1.45 -apple-system, BlinkMacSystemFont, "SF Pro Display","Segoe
 .toggles { display:flex; gap:8px; margin-bottom:10px; flex-wrap:wrap; }
 .toggles button { background:var(--card); border:1.5px solid #e0e0e0; padding:7px 13px; border-radius:7px; font-weight:600; font-size:.78rem; cursor:pointer; }
 .toggles button.active { background:var(--tupss-blue); color:#fff; border-color:var(--tupss-blue); }
-.filter-bar { margin-bottom: 10px; }
-.filter-bar input { width:100%; padding:10px 14px; font-size:15px; border:1.5px solid #e0e0e0; border-radius:8px; outline:none; background:var(--card); transition:border-color .15s; }
-.filter-bar input:focus { border-color:var(--tupss-blue); }
 .rules { background:var(--card); border-radius:10px; padding:12px 16px; border-left:4px solid var(--tupss-blue); font-size:.78rem; color:var(--ink-soft); line-height:1.6; margin-top:14px; }
 .rules strong { color:#060000; }
 .footnote { font-size:.7rem; color:var(--ink-soft); margin-top:14px; padding:10px 14px; background:var(--card); border-radius:8px; border-left:3px solid var(--tupss-blue); line-height:1.5; }
@@ -59,15 +62,12 @@ body { font:14px/1.45 -apple-system, BlinkMacSystemFont, "SF Pro Display","Segoe
 </div>
 
 <div class="counts">
-<div class="exec-card chase"><div class="who"><span class="chip">Chase</span><div><div class="lbl">Total shifts</div></div></div><div class="cnt" id="chaseCnt">—</div></div>
-<div class="exec-card corey"><div class="who"><span class="chip">Corey</span><div><div class="lbl">Total shifts</div></div></div><div class="cnt" id="coreyCnt">—</div></div>
-<div class="exec-card mike"><div class="who"><span class="chip">Mike</span><div><div class="lbl">Total shifts</div></div></div><div class="cnt" id="mikeCnt">—</div></div>
+<div class="exec-card chase" data-exec="Chase" role="button" tabindex="0"><div class="who"><span class="chip">Chase</span><div><div class="lbl">Total shifts</div><div class="lbl-hint">Tap to filter</div></div></div><div class="cnt" id="chaseCnt">—</div></div>
+<div class="exec-card corey" data-exec="Corey" role="button" tabindex="0"><div class="who"><span class="chip">Corey</span><div><div class="lbl">Total shifts</div><div class="lbl-hint">Tap to filter</div></div></div><div class="cnt" id="coreyCnt">—</div></div>
+<div class="exec-card mike" data-exec="Mike" role="button" tabindex="0"><div class="who"><span class="chip">Mike</span><div><div class="lbl">Total shifts</div><div class="lbl-hint">Tap to filter</div></div></div><div class="cnt" id="mikeCnt">—</div></div>
 </div>
 
 <div class="section-h">Assignments</div>
-<div class="filter-bar">
-<input type="search" id="execSearch" placeholder="Filter by exec name (Mike / Chase / Corey)..." autocomplete="off"/>
-</div>
 <div class="toggles" id="storeFilter">
 <button class="active" data-store="all">All stores</button>
 <button data-store="2335">Suburban #2335</button>
@@ -123,14 +123,16 @@ document.getElementById("coreyCnt").textContent = STATIC_STATE.exec_counts.Corey
 document.getElementById("mikeCnt").textContent = STATIC_STATE.exec_counts.Mike;
 document.getElementById("refreshStamp").textContent = "Viewed " + new Date().toLocaleString("en-US", { weekday:"short", month:"short", day:"numeric", hour:"numeric", minute:"2-digit" });
 
-const EXEC_SEARCH_KEY = "fc_exec_coverage_search";
+const EXEC_FILTER_KEY = "fc_exec_coverage_exec";
 let activeStore = "all";
+let activeExec = localStorage.getItem(EXEC_FILTER_KEY) || "all";
 function fmt(d) { const x = new Date(d+"T12:00:00"); return x.toLocaleDateString("en-US",{weekday:"short",month:"numeric",day:"numeric"}); }
+function syncCards() {
+  document.querySelectorAll(".exec-card").forEach(c => c.classList.toggle("active", c.dataset.exec === activeExec));
+}
 function render() {
-  const q = (document.getElementById("execSearch").value || "").toLowerCase().trim();
-  if (q) localStorage.setItem(EXEC_SEARCH_KEY, q); else localStorage.removeItem(EXEC_SEARCH_KEY);
   let list = STATIC_STATE.assignments.filter(a => activeStore === "all" || a.store === activeStore);
-  if (q) list = list.filter(a => (a.exec || "").toLowerCase().includes(q));
+  if (activeExec !== "all") list = list.filter(a => a.exec === activeExec);
   list.sort((a,b) => a.date < b.date ? -1 : a.date > b.date ? 1 : 0);
   const el = document.getElementById("assigns");
   if (list.length === 0) {
@@ -141,14 +143,24 @@ function render() {
     `<div class="assign-row"><span class="dt">${fmt(a.date)}</span><span class="store">${STORE_NAMES[a.store]} #${a.store}</span><span class="time">${a.shift}</span><span><span class="exec-chip exec-${a.exec.toLowerCase()}">${a.exec}</span></span></div>`
   ).join("");
 }
+function toggleExec(name) {
+  activeExec = (activeExec === name) ? "all" : name;
+  if (activeExec === "all") localStorage.removeItem(EXEC_FILTER_KEY);
+  else localStorage.setItem(EXEC_FILTER_KEY, activeExec);
+  syncCards();
+  render();
+}
 document.querySelectorAll("#storeFilter button").forEach(b => b.addEventListener("click", () => {
   document.querySelectorAll("#storeFilter button").forEach(x => x.classList.remove("active"));
   b.classList.add("active");
   activeStore = b.dataset.store;
   render();
 }));
-document.getElementById("execSearch").addEventListener("input", render);
-document.getElementById("execSearch").value = localStorage.getItem(EXEC_SEARCH_KEY) || "";
+document.querySelectorAll(".exec-card").forEach(c => {
+  c.addEventListener("click", () => toggleExec(c.dataset.exec));
+  c.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); toggleExec(c.dataset.exec); } });
+});
+syncCards();
 render();
 </script>
 </body>
