@@ -1,0 +1,121 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Suburban Schedule &middot; FC Franchise</title>
+<style>
+:root { color-scheme: light; }
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+html, body { margin: 0; padding: 0; }
+body { background: #f7f7f8; color: #1a1a1a; font: 15px/1.4 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; padding-bottom: env(safe-area-inset-bottom, 0); }
+.fc-header { background: linear-gradient(135deg, #009CBD, #007a96); color: white; padding: 14px 16px 12px; position: sticky; top: 0; z-index: 10; box-shadow: 0 2px 6px rgba(0,0,0,.12); }
+.fc-logo { background: white; color: #009CBD; font-weight: 800; padding: 3px 7px; border-radius: 4px; font-size: 10px; letter-spacing: .1em; display: inline-block; }
+.fc-store { font-size: 22px; font-weight: 800; margin-top: 4px; letter-spacing: -.3px; }
+.fc-meta { font-size: 11px; opacity: .88; margin-top: 2px; }
+.fc-search { background: white; padding: 10px 16px; border-bottom: 1px solid #e0e0e0; position: sticky; top: 78px; z-index: 9; }
+.fc-search input { width: 100%; padding: 10px 14px; font-size: 16px; border: 1.5px solid #e0e0e0; border-radius: 10px; outline: none; background: #f7f7f8; transition: border-color .15s; }
+.fc-search input:focus { border-color: #009CBD; background: white; }
+.fc-banner { background: #fff3cd; color: #856404; padding: 10px 16px; font-size: 13px; text-align: center; }
+.fc-days { padding: 12px; max-width: 640px; margin: 0 auto; }
+.fc-day { background: white; border-radius: 12px; margin-bottom: 10px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,.06); border-left: 4px solid #009CBD; }
+.fc-day.weekend { border-left-color: #FFB500; background: #fdfcfa; }
+.fc-day.today { border-left-color: #009CBD; box-shadow: 0 2px 8px rgba(0,156,189,.25); }
+.fc-day-header { padding: 10px 14px 8px; font-weight: 700; font-size: 15px; display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+.fc-day.today .fc-day-header { background: linear-gradient(135deg,#009CBD,#007a96); color: white; padding: 12px 14px; }
+.fc-day.today .fc-day-header::after { content: "TODAY"; font-size: 10px; font-weight: 800; letter-spacing: .8px; background: white; color: #007a96; padding: 2px 6px; border-radius: 4px; }
+.fc-dow { color: #007a96; text-transform: uppercase; font-size: 12px; font-weight: 800; }
+.fc-day.today .fc-dow { color: white; }
+.fc-date { color: #64748b; font-size: 13px; font-weight: 600; margin-left: 6px; }
+.fc-day.today .fc-date { color: rgba(255,255,255,.92); }
+.fc-shifts { padding: 6px 0 8px; }
+.fc-shift { padding: 5px 14px; font-family: ui-monospace, "SF Mono", Consolas, Menlo, monospace; font-size: 14px; display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+.fc-shift-name { font-weight: 700; }
+.fc-shift-time { color: #007a96; font-weight: 600; }
+.fc-shift.open { background: #FFE5E5; color: #C00000; }
+.fc-shift.open .fc-shift-name, .fc-shift.open .fc-shift-time { color: #C00000; font-weight: 800; }
+.fc-out { padding: 6px 14px 8px; font-size: 11px; color: #b91c1c; font-weight: 700; border-top: 1px dashed #fecaca; margin-top: 4px; }
+.fc-out::before { content: "OUT: "; color: #94a3b8; font-weight: 600; }
+.fc-empty { padding: 50px 24px; text-align: center; color: #64748b; font-size: 14px; }
+.fc-empty-icon { font-size: 32px; margin-bottom: 8px; opacity: .4; }
+.fc-footer { padding: 18px 16px 24px; text-align: center; color: #94a3b8; font-size: 11px; }
+.fc-footer strong { color: #009CBD; font-weight: 700; }
+@media (max-width: 380px) { .fc-store { font-size: 20px; } .fc-day-header { font-size: 14px; } .fc-shift { font-size: 13.5px; padding: 4px 12px; } }
+</style>
+</head>
+<body>
+<div class="fc-header">
+  <span class="fc-logo">THE UPS STORE</span>
+  <div class="fc-store">Suburban</div>
+  <div class="fc-meta">#2335 &middot; updated <span id="updated">—</span></div>
+</div>
+<div class="fc-search"><input type="search" id="search" placeholder="Filter by name..." autocomplete="off"></div>
+<div id="banner"></div>
+<div id="days" class="fc-days"></div>
+<div class="fc-footer">Past days drop off automatically &middot; <strong>FC Franchise</strong></div>
+<script>
+const STATIC_STATE = {"store_id":"2335","store_name":"Suburban","store_hours":{"0":[8,19],"1":[8,19],"2":[8,19],"3":[8,19],"4":[8,19],"5":[9,17],"6":[10,15]},"shifts_by_date":{"2026-05-30":[{"name":"Adam","kind":"shift","start":9.0,"end":17.0},{"name":"Omar","kind":"shift","start":9.0,"end":17.0},{"name":"Bryce","kind":"shift","start":12.0,"end":17.0}],"2026-06-01":[{"name":"Dayne","kind":"shift","start":8.0,"end":12.0},{"name":"Jah","kind":"shift","start":8.0,"end":16.0},{"name":"Omar","kind":"shift","start":11.0,"end":19.0},{"name":"Jayson","kind":"shift","start":14.0,"end":19.0},{"name":"Adam","kind":"shift","start":15.0,"end":19.0},{"name":"Danny","kind":"OUT","start":0,"end":0},{"name":"Dyllan","kind":"OUT","start":0,"end":0}],"2026-06-02":[{"name":"Jah","kind":"shift","start":8.0,"end":16.0},{"name":"Jayson","kind":"shift","start":8.0,"end":16.0},{"name":"Omar","kind":"shift","start":14.0,"end":19.0},{"name":"Corey","kind":"shift","start":15.0,"end":19.0},{"name":"OPEN","kind":"shift","start":15.0,"end":19.0},{"name":"Danny","kind":"OUT","start":0,"end":0},{"name":"Dayne","kind":"OUT","start":0,"end":0},{"name":"Dyllan","kind":"OUT","start":0,"end":0}],"2026-06-03":[{"name":"Jah","kind":"shift","start":8.0,"end":16.0},{"name":"Jayson","kind":"shift","start":8.0,"end":16.0},{"name":"Omar","kind":"shift","start":14.0,"end":19.0},{"name":"Adam","kind":"shift","start":15.0,"end":19.0},{"name":"Danny","kind":"OUT","start":0,"end":0},{"name":"Dayne","kind":"OUT","start":0,"end":0},{"name":"Dyllan","kind":"OUT","start":0,"end":0}],"2026-06-04":[{"name":"Jah","kind":"shift","start":8.0,"end":16.0},{"name":"Jayson","kind":"shift","start":8.0,"end":12.0},{"name":"Dayne","kind":"shift","start":12.0,"end":16.0},{"name":"Omar","kind":"shift","start":14.0,"end":19.0},{"name":"Jayson","kind":"shift","start":15.0,"end":19.0},{"name":"Danny","kind":"OUT","start":0,"end":0},{"name":"Dyllan","kind":"OUT","start":0,"end":0}],"2026-06-05":[{"name":"Dayne","kind":"shift","start":8.0,"end":16.0},{"name":"Jah","kind":"shift","start":8.0,"end":16.0},{"name":"OPEN","kind":"shift","start":9.0,"end":19.0},{"name":"Omar","kind":"shift","start":14.0,"end":19.0},{"name":"Danny","kind":"OUT","start":0,"end":0},{"name":"Dyllan","kind":"OUT","start":0,"end":0}],"2026-06-06":[{"name":"Adam","kind":"shift","start":9.0,"end":17.0},{"name":"Omar","kind":"shift","start":9.0,"end":13.0},{"name":"Bryce","kind":"shift","start":11.0,"end":17.0},{"name":"Danny","kind":"OUT","start":0,"end":0},{"name":"Dyllan","kind":"OUT","start":0,"end":0}],"2026-06-07":[{"name":"Jayson","kind":"shift","start":10.0,"end":15.0},{"name":"OPEN","kind":"shift","start":10.0,"end":15.0},{"name":"Danny","kind":"OUT","start":0,"end":0},{"name":"Dyllan","kind":"OUT","start":0,"end":0}],"2026-06-08":[{"name":"Jah","kind":"shift","start":8.0,"end":16.0},{"name":"Mike","kind":"shift","start":8.0,"end":14.0},{"name":"Omar","kind":"shift","start":14.0,"end":19.0},{"name":"Corey","kind":"shift","start":15.0,"end":19.0},{"name":"Danny","kind":"OUT","start":0,"end":0},{"name":"Dayne","kind":"OUT","start":0,"end":0},{"name":"Dyllan","kind":"OUT","start":0,"end":0}],"2026-06-09":[{"name":"Jah","kind":"shift","start":8.0,"end":16.0},{"name":"Mike","kind":"shift","start":8.0,"end":14.0},{"name":"Corey","kind":"shift","start":12.0,"end":16.0},{"name":"Jayson","kind":"shift","start":14.0,"end":19.0},{"name":"OPEN","kind":"shift","start":15.0,"end":19.0},{"name":"Danny","kind":"OUT","start":0,"end":0},{"name":"Dayne","kind":"OUT","start":0,"end":0},{"name":"Dyllan","kind":"OUT","start":0,"end":0},{"name":"Omar","kind":"OUT","start":0,"end":0}],"2026-06-10":[{"name":"Jah","kind":"shift","start":8.0,"end":16.0},{"name":"Jayson","kind":"shift","start":8.0,"end":16.0},{"name":"Omar","kind":"shift","start":14.0,"end":19.0},{"name":"Adam","kind":"shift","start":15.0,"end":19.0},{"name":"Danny","kind":"OUT","start":0,"end":0},{"name":"Dayne","kind":"OUT","start":0,"end":0},{"name":"Dyllan","kind":"OUT","start":0,"end":0}],"2026-06-11":[{"name":"Jah","kind":"shift","start":8.0,"end":16.0},{"name":"Jayson","kind":"shift","start":8.0,"end":16.0},{"name":"Omar","kind":"shift","start":14.0,"end":19.0},{"name":"Adam","kind":"shift","start":15.0,"end":19.0},{"name":"Danny","kind":"OUT","start":0,"end":0},{"name":"Dayne","kind":"OUT","start":0,"end":0}],"2026-06-12":[{"name":"Jah","kind":"shift","start":8.0,"end":16.0},{"name":"OPEN","kind":"shift","start":8.0,"end":14.0},{"name":"OPEN","kind":"shift","start":9.0,"end":19.0},{"name":"Jayson","kind":"shift","start":14.0,"end":19.0},{"name":"Corey","kind":"shift","start":15.0,"end":19.0},{"name":"Danny","kind":"OUT","start":0,"end":0},{"name":"Dayne","kind":"OUT","start":0,"end":0},{"name":"Omar","kind":"OUT","start":0,"end":0}],"2026-06-13":[{"name":"Dyllan","kind":"shift","start":9.0,"end":13.0},{"name":"Jayson","kind":"shift","start":9.0,"end":17.0},{"name":"Adam","kind":"shift","start":11.0,"end":17.0},{"name":"Bryce","kind":"OUT","start":0,"end":0},{"name":"Danny","kind":"OUT","start":0,"end":0},{"name":"Omar","kind":"OUT","start":0,"end":0}],"2026-06-14":[{"name":"Dyllan","kind":"shift","start":10.0,"end":15.0},{"name":"OPEN","kind":"shift","start":10.0,"end":15.0},{"name":"Danny","kind":"OUT","start":0,"end":0},{"name":"Omar","kind":"OUT","start":0,"end":0}],"2026-06-15":[{"name":"Jah","kind":"shift","start":8.0,"end":16.0},{"name":"Mike","kind":"shift","start":8.0,"end":14.0},{"name":"Omar","kind":"shift","start":14.0,"end":19.0},{"name":"Corey","kind":"shift","start":15.0,"end":19.0},{"name":"Danny","kind":"OUT","start":0,"end":0},{"name":"Dayne","kind":"OUT","start":0,"end":0}],"2026-06-16":[{"name":"Jah","kind":"shift","start":8.0,"end":16.0},{"name":"Jayson","kind":"shift","start":8.0,"end":16.0},{"name":"Omar","kind":"shift","start":14.0,"end":19.0},{"name":"Corey","kind":"shift","start":15.0,"end":19.0},{"name":"OPEN","kind":"shift","start":15.0,"end":19.0},{"name":"Danny","kind":"OUT","start":0,"end":0},{"name":"Dayne","kind":"OUT","start":0,"end":0}],"2026-06-17":[{"name":"Jah","kind":"shift","start":8.0,"end":16.0},{"name":"Jayson","kind":"shift","start":8.0,"end":16.0},{"name":"Omar","kind":"shift","start":14.0,"end":19.0},{"name":"Adam","kind":"shift","start":15.0,"end":19.0},{"name":"Danny","kind":"OUT","start":0,"end":0},{"name":"Dayne","kind":"OUT","start":0,"end":0}],"2026-06-18":[{"name":"Jah","kind":"shift","start":8.0,"end":16.0},{"name":"Jayson","kind":"shift","start":8.0,"end":16.0},{"name":"Omar","kind":"shift","start":14.0,"end":19.0},{"name":"Adam","kind":"shift","start":15.0,"end":19.0},{"name":"Danny","kind":"OUT","start":0,"end":0},{"name":"Dayne","kind":"OUT","start":0,"end":0}],"2026-06-19":[{"name":"Jah","kind":"shift","start":8.0,"end":16.0},{"name":"Omar","kind":"shift","start":8.0,"end":15.0},{"name":"OPEN","kind":"shift","start":9.0,"end":19.0},{"name":"Jayson","kind":"shift","start":10.0,"end":17.0},{"name":"Corey","kind":"shift","start":12.0,"end":19.0}],"2026-06-20":[{"name":"Omar","kind":"shift","start":9.0,"end":13.0},{"name":"Dyllan","kind":"shift","start":10.0,"end":15.0},{"name":"Bryce","kind":"shift","start":11.0,"end":17.0},{"name":"Danny","kind":"OUT","start":0,"end":0}],"2026-06-21":[{"name":"Dyllan","kind":"shift","start":10.0,"end":15.0},{"name":"Jayson","kind":"shift","start":10.0,"end":15.0},{"name":"OPEN","kind":"shift","start":10.0,"end":15.0},{"name":"Danny","kind":"OUT","start":0,"end":0}],"2026-06-22":[{"name":"Jah","kind":"shift","start":8.0,"end":16.0},{"name":"Mike","kind":"shift","start":8.0,"end":14.0},{"name":"Corey","kind":"shift","start":13.0,"end":19.0},{"name":"Omar","kind":"shift","start":14.0,"end":19.0},{"name":"Jayson","kind":"shift","start":15.0,"end":19.0},{"name":"Danny","kind":"OUT","start":0,"end":0},{"name":"Dayne","kind":"OUT","start":0,"end":0}],"2026-06-23":[{"name":"Jah","kind":"shift","start":8.0,"end":16.0},{"name":"Jayson","kind":"shift","start":8.0,"end":16.0},{"name":"Chase","kind":"shift","start":12.0,"end":16.0},{"name":"Omar","kind":"shift","start":14.0,"end":19.0},{"name":"OPEN","kind":"shift","start":15.0,"end":19.0},{"name":"Danny","kind":"OUT","start":0,"end":0},{"name":"Dayne","kind":"OUT","start":0,"end":0}],"2026-06-24":[{"name":"Jah","kind":"shift","start":8.0,"end":16.0},{"name":"Jayson","kind":"shift","start":8.0,"end":16.0},{"name":"Omar","kind":"shift","start":14.0,"end":19.0},{"name":"Adam","kind":"shift","start":15.0,"end":19.0},{"name":"Danny","kind":"OUT","start":0,"end":0},{"name":"Dayne","kind":"OUT","start":0,"end":0}],"2026-06-25":[{"name":"Jah","kind":"shift","start":8.0,"end":16.0},{"name":"Jayson","kind":"shift","start":8.0,"end":16.0},{"name":"Omar","kind":"shift","start":14.0,"end":19.0},{"name":"Adam","kind":"shift","start":15.0,"end":19.0},{"name":"Danny","kind":"OUT","start":0,"end":0},{"name":"Dayne","kind":"OUT","start":0,"end":0}],"2026-06-26":[{"name":"Jah","kind":"shift","start":8.0,"end":16.0},{"name":"Omar","kind":"shift","start":8.0,"end":15.0},{"name":"OPEN","kind":"shift","start":9.0,"end":19.0},{"name":"Jayson","kind":"shift","start":10.0,"end":17.0},{"name":"Corey","kind":"shift","start":12.0,"end":19.0}],"2026-06-27":[{"name":"Omar","kind":"shift","start":9.0,"end":13.0},{"name":"Dyllan","kind":"shift","start":10.0,"end":15.0},{"name":"Bryce","kind":"shift","start":11.0,"end":17.0},{"name":"Danny","kind":"OUT","start":0,"end":0}],"2026-06-28":[{"name":"Dyllan","kind":"shift","start":10.0,"end":15.0},{"name":"Jayson","kind":"shift","start":10.0,"end":15.0},{"name":"OPEN","kind":"shift","start":10.0,"end":15.0},{"name":"Danny","kind":"OUT","start":0,"end":0}]},"last_updated":"2026-05-30T02:18:28.079949Z","audit_verdict":"PASS","audit_fixes_applied":0};
+const STORE_ID = "2335";
+const SEARCH_KEY = "fc_staff_search_" + STORE_ID;
+function fmtTime(h) {
+  const hh = Math.floor(h);
+  const mm = Math.round((h - hh) * 60);
+  const ampm = hh >= 12 ? "p" : "a";
+  const h12 = (hh % 12 === 0) ? 12 : hh % 12;
+  return mm ? `${h12}:${String(mm).padStart(2,"0")}${ampm}` : `${h12}${ampm}`;
+}
+function todayIso() {
+  const d = new Date();
+  return new Date(d.getTime() - d.getTimezoneOffset()*60000).toISOString().slice(0,10);
+}
+function render() {
+  const today = todayIso();
+  const search = (document.getElementById("search").value || "").toLowerCase().trim();
+  if (search) localStorage.setItem(SEARCH_KEY, search); else localStorage.removeItem(SEARCH_KEY);
+  try { document.getElementById("updated").textContent = new Date(STATIC_STATE.last_updated).toLocaleString(undefined, { month:"short", day:"numeric", hour:"numeric", minute:"2-digit" }); }
+  catch { document.getElementById("updated").textContent = STATIC_STATE.last_updated; }
+  const dates = Object.keys(STATIC_STATE.shifts_by_date).filter(d => d >= today).sort();
+  const days = document.getElementById("days");
+  const banner = document.getElementById("banner");
+  banner.innerHTML = "";
+  if (dates.length === 0) { days.innerHTML = '<div class="fc-empty"><div class="fc-empty-icon">📅</div>No upcoming schedule loaded.<br>Check back after the next build.</div>'; return; }
+  const lastDate = dates[dates.length - 1];
+  const daysAhead = Math.floor((new Date(lastDate + "T12:00:00") - new Date(today + "T12:00:00")) / 86400000);
+  if (daysAhead < 7) { banner.innerHTML = '<div class="fc-banner">Only ' + (daysAhead + 1) + ' day(s) of schedule loaded. Next month builds the 14th–21st.</div>'; }
+  let html = "", renderedAny = false;
+  for (const dateStr of dates) {
+    const d = new Date(dateStr + "T12:00:00");
+    const allShifts = STATIC_STATE.shifts_by_date[dateStr] || [];
+    let shifts = allShifts.filter(s => s.kind !== "OUT");
+    let outs = allShifts.filter(s => s.kind === "OUT");
+    if (search) {
+      shifts = shifts.filter(s => (s.name || "").toLowerCase().includes(search));
+      outs = outs.filter(s => (s.name || "").toLowerCase().includes(search));
+      if (shifts.length === 0 && outs.length === 0) continue;
+    }
+    renderedAny = true;
+    const isToday = dateStr === today;
+    const isWeekend = d.getDay() === 0 || d.getDay() === 6;
+    const dow = d.toLocaleDateString(undefined, { weekday: "short" });
+    const monthDay = d.toLocaleDateString(undefined, { month: "numeric", day: "numeric" });
+    const cls = "fc-day" + (isToday ? " today" : "") + (isWeekend ? " weekend" : "");
+    html += '<div class="' + cls + '"><div class="fc-day-header"><span><span class="fc-dow">' + dow + '</span><span class="fc-date">' + monthDay + '</span></span></div><div class="fc-shifts">';
+    if (shifts.length === 0 && outs.length === 0) { html += '<div class="fc-shift" style="color:#94a3b8;font-style:italic;justify-content:center;">closed / no shifts</div>'; }
+    for (const s of shifts) {
+      const isOpen = (s.name || "").toUpperCase() === "OPEN";
+      html += '<div class="fc-shift' + (isOpen ? " open" : "") + '"><span class="fc-shift-name">' + s.name + '</span><span class="fc-shift-time">' + fmtTime(s.start) + " - " + fmtTime(s.end) + '</span></div>';
+    }
+    html += "</div>";
+    if (outs.length > 0) { html += '<div class="fc-out">' + outs.map(s => s.name).join(", ") + "</div>"; }
+    html += "</div>";
+  }
+  if (!renderedAny && search) { days.innerHTML = '<div class="fc-empty"><div class="fc-empty-icon">🔎</div>No shifts found for "' + search + '".</div>'; }
+  else { days.innerHTML = html; }
+  if (!search) {
+    const todayEl = document.querySelector(".fc-day.today");
+    if (todayEl) setTimeout(() => todayEl.scrollIntoView({ behavior: "smooth", block: "start" }), 60);
+  }
+}
+document.getElementById("search").addEventListener("input", render);
+document.getElementById("search").value = localStorage.getItem(SEARCH_KEY) || "";
+render();
+</script>
+</body></html>
