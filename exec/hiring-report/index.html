@@ -1,0 +1,159 @@
+<!DOCTYPE html><script type="application/json" id="cowork-artifact-meta">
+{
+  "name": "Hiring Report",
+  "schemaVersion": 1,
+  "description": "FC Franchise hiring report — non-Cowork viewable mirror published to GitHub Pages from the master Cowork artifact. Data freshness reflects last Cowork-driven refresh."
+}
+</script>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Hiring Report — FC Franchise</title>
+<style>
+:root { color-scheme: light; --tupss-blue: #009CBD; --tupss-blue-dark: #006F88; --tupss-blue-light: #B8E5EF; --tupss-diesel: #060000; --tupss-gold: #FFB500; --tupss-yellow: #FFD200; --ink: #060000; --ink-soft: #4a5568; --cream: #FDF8F2; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', sans-serif; background: #f4f7f9; color: #060000; line-height: 1.45; font-size: 14px; padding: 16px; }
+.header { background: linear-gradient(135deg, var(--tupss-blue) 0%, var(--tupss-blue-dark) 100%); color: #fff; padding: 18px 22px; border-radius: 12px; margin-bottom: 16px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; box-shadow: 0 2px 8px rgba(0,156,189,0.18); }
+.header .title-block { display: flex; align-items: center; gap: 14px; }
+.brand-tag { background: #fff; color: var(--tupss-blue); font-weight: 800; padding: 6px 10px; border-radius: 4px; font-size: 0.65rem; letter-spacing: 0.12em; }
+.header h1 { font-size: 1.3rem; font-weight: 700; letter-spacing: -0.01em; line-height: 1.1; }
+.header .sub { font-size: 0.72rem; opacity: 0.85; margin-top: 2px; }
+.header .meta { font-size: 0.72rem; opacity: 0.9; text-align: right; }
+#refreshStamp { color: var(--tupss-yellow); font-weight: 600; }
+.key-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 16px; }
+@media (max-width: 700px) { .key-stats { grid-template-columns: repeat(2, 1fr); } }
+.stat { background: #fff; border-radius: 10px; padding: 12px 14px; box-shadow: 0 1px 3px rgba(0,0,0,0.06); border-left: 4px solid var(--tupss-blue); }
+.stat .num { font-size: 1.55rem; font-weight: 800; color: var(--ink); line-height: 1; font-variant-numeric: tabular-nums; }
+.stat .label { font-size: 0.7rem; color: var(--ink-soft); margin-top: 4px; text-transform: uppercase; letter-spacing: 0.04em; font-weight: 600; }
+.stat.warn { border-left-color: var(--tupss-gold); } .stat.warn .num { color: #b45309; }
+.stat.ok { border-left-color: #047857; } .stat.ok .num { color: #047857; }
+.section-h { font-size: 0.78rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: var(--tupss-diesel); margin: 22px 0 10px; padding-bottom: 6px; border-bottom: 2px solid var(--tupss-blue); display: flex; align-items: center; gap: 8px; }
+.section-h .dot { width: 8px; height: 8px; background: var(--tupss-blue); border-radius: 50%; }
+.hire-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-bottom: 6px; }
+@media (max-width: 800px) { .hire-grid { grid-template-columns: 1fr; } }
+.hire-card { background: #fff; border-radius: 10px; padding: 14px 16px; box-shadow: 0 1px 3px rgba(0,0,0,0.06); border-top: 4px solid #ccc; }
+.hire-card.priority { border-top-color: #b91c1c; }
+.hire-card.soon { border-top-color: var(--tupss-gold); }
+.hire-card.watch { border-top-color: var(--tupss-blue); }
+.hire-card h3 { font-size: 0.95rem; font-weight: 700; margin-bottom: 4px; }
+.hire-card .meta { font-size: 0.7rem; color: var(--ink-soft); margin-bottom: 10px; line-height: 1.4; }
+.hire-card .ask { font-size: 0.85rem; font-weight: 600; padding: 8px 10px; background: var(--cream); border-radius: 6px; margin-bottom: 8px; color: var(--ink); }
+.hire-card .why { font-size: 0.74rem; color: var(--ink-soft); line-height: 1.5; }
+.badge { display: inline-block; padding: 2px 7px; border-radius: 10px; font-size: 0.6rem; font-weight: 700; margin-right: 5px; letter-spacing: 0.04em; text-transform: uppercase; }
+.badge-priority { background: #fee2e2; color: #b91c1c; }
+.badge-soon { background: #fef3c7; color: #92400e; }
+.badge-watch { background: var(--tupss-blue-light); color: var(--tupss-blue-dark); }
+.cov-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0; background: #fff; border-radius: 10px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.06); }
+.cov-cell { padding: 12px 14px; text-align: center; border-right: 1px solid #f0f4f5; }
+.cov-cell:last-child { border-right: none; }
+.cov-cell .name { font-size: 0.72rem; color: var(--ink-soft); font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 4px; }
+.cov-cell .val { font-size: 1.25rem; font-weight: 800; font-variant-numeric: tabular-nums; }
+.cov-cell .detail { font-size: 0.68rem; color: var(--ink-soft); margin-top: 4px; }
+.risks { background: #fff; border-radius: 10px; box-shadow: 0 1px 3px rgba(0,0,0,0.06); padding: 4px 0; }
+.risks li { list-style: none; padding: 10px 16px; border-bottom: 1px solid #f0f4f5; display: flex; gap: 10px; font-size: 0.82rem; }
+.risks li:last-child { border-bottom: none; }
+.risks .who { font-weight: 700; min-width: 130px; flex-shrink: 0; color: var(--ink); }
+.risks li.crit .who { color: #b91c1c; }
+.risks li.med .who { color: #b45309; }
+.risks li.ok .who { color: #047857; }
+.risks .what { color: var(--ink-soft); line-height: 1.5; }
+.roster { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
+@media (max-width: 800px) { .roster { grid-template-columns: 1fr; } }
+.store-roster { background: #fff; border-radius: 10px; padding: 12px 14px; box-shadow: 0 1px 3px rgba(0,0,0,0.06); }
+.store-roster h4 { font-size: 0.95rem; font-weight: 800; color: var(--tupss-blue); margin-bottom: 4px; }
+.store-roster .id { font-size: 0.7rem; color: var(--ink-soft); margin-bottom: 10px; }
+.store-roster .role-row { display: flex; justify-content: space-between; padding: 4px 0; border-bottom: 1px dotted #e5e7eb; font-size: 0.76rem; }
+.store-roster .role-row:last-child { border-bottom: none; }
+.store-roster .role-row .role { color: var(--ink-soft); }
+.store-roster .role-row .ct { font-weight: 700; font-variant-numeric: tabular-nums; }
+.store-roster .total { margin-top: 8px; padding-top: 6px; border-top: 1px solid var(--tupss-blue); font-weight: 800; font-size: 0.85rem; display: flex; justify-content: space-between; color: var(--tupss-blue); }
+.footnote { font-size: 0.7rem; color: var(--ink-soft); margin-top: 14px; padding: 10px 14px; background: #fff; border-radius: 8px; border-left: 3px solid var(--tupss-blue); line-height: 1.5; }
+</style>
+</head>
+<body>
+<div class="header">
+<div class="title-block">
+<span class="brand-tag">THE UPS STORE</span>
+<div>
+<h1>Hiring Report</h1>
+<div class="sub">FC Franchise · Suburban #2335 · Harmony #3368 · Bear #3492</div>
+</div>
+</div>
+<div class="meta">
+<div>For Monday calls + Wednesday interviews</div>
+<div id="refreshStamp">Viewed —</div>
+</div>
+</div>
+<div class="key-stats">
+<div class="stat ok"><div class="num">25</div><div class="label">Active Roster</div></div>
+<div class="stat warn"><div class="num">33</div><div class="label">OPEN Slots (June)</div></div>
+<div class="stat warn"><div class="num">2</div><div class="label">June Departures</div></div>
+<div class="stat ok"><div class="num">0</div><div class="label">Truly Unfilled (post-cascade)</div></div>
+</div>
+<div class="section-h"><span class="dot"></span>Hiring Priorities</div>
+<div class="hire-grid">
+<div class="hire-card priority">
+<h3><span class="badge badge-priority">Priority</span>Harmony #3368</h3>
+<div class="meta">Steven Barry departing 6/28 · Tue volume ~1,900 pkg/wk · Sara summer schedule 6/16+ limits her Tue coverage</div>
+<div class="ask">PT 16-20 hr/wk · Closer 11-7 Tue/Wed/Fri</div>
+<div class="why">Steven's exit cuts Harmony notary count from 7→6. Aireonna (trainee 5/13) on track for notary training but needs cert timeline. A PT closer 11-7 replaces Steven's hours + restores 2 closers Tue/Wed/Fri.</div>
+</div>
+<div class="hire-card soon">
+<h3><span class="badge badge-soon">Soon</span>Bear #3492</h3>
+<div class="meta">Kevin Jamaica 6/11-27 · Henry medical leave 6/13-7/13 · 2-FT model needs 1 more FT post-Anthony→Mgr July</div>
+<div class="ask">PT 15-20 hr/wk + FT consideration · 11-5 Tue/Wed/Sat (closer-window)</div>
+<div class="why">Anthony moves to Mgr July 1 (trial) → Bear's CM seat collapses. Bear's 2-FT ideal means Colin stays FT + need a second FT. Kevin Jamaica covered by Brandon Collins this cycle but Henry's medical leave overlaps create real Tue/Wed gap weeks 2-4.</div>
+</div>
+<div class="hire-card watch">
+<h3><span class="badge badge-watch">Watch</span>Suburban #2335</h3>
+<div class="meta">Jah job-hunting · Branden likely transferring from Bear to Suburban CM upon Jah exit · Sunday Adam-solo risk</div>
+<div class="ask">PT 12-15 hr/wk · Sun 10-3 + Sat closer 12-5</div>
+<div class="why">Suburban runs at 1 CM + 1 FT (Omar) ideal. Bryce Sat-only is fine. Sunday coverage gap (Adam usually solo) gets backfilled by execs but a permanent Sun PT eases the rotation. If Jah leaves before Branden transfers, escalates to priority. Adam's notary cert lands when he turns 18.</div>
+</div>
+</div>
+<div class="section-h"><span class="dot"></span>OPEN-Fill Cascade — June 2026</div>
+<div class="cov-grid">
+<div class="cov-cell"><div class="name">Tier 1 — Store Staff</div><div class="val">81</div><div class="detail">filled by available existing employees</div></div>
+<div class="cov-cell"><div class="name">Tier 2 — Exec Rotation</div><div class="val">21</div><div class="detail">Chase 11 · Corey 5 · Mike 5 (no exec weekends rule)</div></div>
+<div class="cov-cell"><div class="name">Tier 4 — Truly OPEN</div><div class="val" style="color:#b45309;">12</div><div class="detail">structural cap conflicts + Sun notary gaps</div></div>
+</div>
+<div class="section-h"><span class="dot"></span>Risk Callouts (for Chase's call list)</div>
+<ul class="risks">
+<li class="crit"><span class="who">Harmony Sun post-6/28</span><span class="what">Steven exit + Sara unavailable Sat → Aireonna trainee can't close → exec rotation absorbs 4 Sundays minimum. Hiring fix = a notary-trainable PT for Sun + weekday close.</span></li>
+<li class="med"><span class="who">Bear post-July Mgr swap</span><span class="what">Anthony goes Mgr 7/1 (trial). Branden may transfer to Suburban CM. Bear's 2-FT model temporarily becomes 1-FT (Colin) → 8 weekday + 4 weekend gap weeks until 2nd FT hired.</span></li>
+<li class="med"><span class="who">Suburban Mgr succession</span><span class="what">Jah job-hunting; no confirmed departure date. Branden-from-Bear is the planned move. Chase floater absorbs interim Sun if Branden's transition timing slips.</span></li>
+<li class="ok"><span class="who">Trainee onboarding</span><span class="what">Aireonna (Harmony, 0 mo) + Kevin (Bear, 0 mo) both showing modal 12-4 attendance. Aireonna passes 90 days 8/11; Kevin passes 8/13. Notary training kicks off month 3.</span></li>
+</ul>
+<div class="section-h"><span class="dot"></span>Active Roster Status</div>
+<div class="roster">
+<div class="store-roster"><h4>Suburban</h4><div class="id">#2335 · Fray Shipping LLC</div>
+<div class="role-row"><span class="role">Mgr</span><span class="ct">1</span></div>
+<div class="role-row"><span class="role">FT</span><span class="ct">1</span></div>
+<div class="role-row"><span class="role">PT</span><span class="ct">6</span></div>
+<div class="role-row"><span class="role">Departures pending</span><span class="ct">1</span></div>
+<div class="total"><span>Total active</span><span>8</span></div></div>
+<div class="store-roster"><h4>Harmony</h4><div class="id">#3368 · Fray Shipping II LLC</div>
+<div class="role-row"><span class="role">Mgr</span><span class="ct">1</span></div>
+<div class="role-row"><span class="role">FT</span><span class="ct">2</span></div>
+<div class="role-row"><span class="role">PT</span><span class="ct">5</span></div>
+<div class="role-row"><span class="role">Trainee</span><span class="ct">1</span></div>
+<div class="role-row"><span class="role">Departures June</span><span class="ct">2</span></div>
+<div class="total"><span>Total active</span><span>9</span></div></div>
+<div class="store-roster"><h4>Bear</h4><div class="id">#3492 · Fray Shipping III LLC</div>
+<div class="role-row"><span class="role">Mgr</span><span class="ct">1</span></div>
+<div class="role-row"><span class="role">FT (CM)</span><span class="ct">2</span></div>
+<div class="role-row"><span class="role">PT</span><span class="ct">4</span></div>
+<div class="role-row"><span class="role">Trainee</span><span class="ct">1</span></div>
+<div class="total"><span>Total active</span><span>8</span></div></div>
+</div>
+<div class="footnote">
+<strong>Live freshness:</strong> Body counts reflect the latest finalized June 2026 schedule (audit verdict PASS · 471 auto-fixes · 26 hiring/structural warnings). Re-rendered on every audit --write-back.
+<br/><br/>
+<strong>Usage:</strong> Chase calls applicants Monday morning, interviews Wednesday. Source data: <code>Schedule (1)/Schedule_Archive/*_FINAL.xlsx</code>
+</div>
+<script>
+document.getElementById("refreshStamp").textContent = "Viewed " + new Date().toLocaleString("en-US", { weekday: "short", month: "short", day: "numeric", hour: "numeric", minute: "2-digit" });
+</script>
+</body>
+</html>

@@ -1,0 +1,138 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Executive Coverage — FC Franchise</title>
+<style>
+:root { color-scheme: light; --tupss-blue:#009CBD; --tupss-blue-dark:#006F88; --tupss-gold:#FFB500; --tupss-navy:#006580; --ink:#060000; --ink-soft:#4a5568; --light:#f4f7f9; --card:#fff; }
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font:14px/1.45 -apple-system, BlinkMacSystemFont, "SF Pro Display","Segoe UI",sans-serif; background:var(--light); color:var(--ink); padding:16px; }
+.header { background:linear-gradient(135deg,var(--tupss-blue) 0%,var(--tupss-blue-dark) 100%); color:#fff; padding:18px 22px; border-radius:12px; margin-bottom:16px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; box-shadow:0 2px 8px rgba(0,156,189,.18); }
+.brand-tag { background:#fff; color:var(--tupss-blue); font-weight:800; padding:6px 10px; border-radius:4px; font-size:.65rem; letter-spacing:.12em; }
+.header h1 { font-size:1.3rem; font-weight:700; }
+.header .sub { font-size:.72rem; opacity:.85; margin-top:2px; }
+.header .meta { font-size:.72rem; opacity:.9; text-align:right; }
+.counts { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-bottom:16px; }
+@media (max-width:600px) { .counts { grid-template-columns:1fr; } }
+.exec-card { background:var(--card); border-radius:10px; padding:14px 16px; box-shadow:0 1px 3px rgba(0,0,0,.06); display:flex; justify-content:space-between; align-items:center; }
+.exec-card .who { display:flex; align-items:center; gap:10px; }
+.exec-card .chip { display:inline-block; padding:4px 10px; border-radius:6px; font-weight:800; font-size:.85rem; letter-spacing:.04em; }
+.exec-card.chase .chip { background:var(--tupss-gold); color:#060000; }
+.exec-card.corey .chip { background:#B3E5F2; color:#003040; }
+.exec-card.mike .chip { background:var(--tupss-navy); color:#fff; }
+.exec-card .cnt { font-size:1.5rem; font-weight:800; font-variant-numeric:tabular-nums; }
+.exec-card .lbl { font-size:.68rem; color:var(--ink-soft); text-transform:uppercase; letter-spacing:.04em; margin-top:2px; }
+.section-h { font-size:.78rem; font-weight:800; text-transform:uppercase; letter-spacing:.08em; color:#060000; margin:22px 0 10px; padding-bottom:6px; border-bottom:2px solid var(--tupss-blue); }
+.assigns { background:var(--card); border-radius:10px; box-shadow:0 1px 3px rgba(0,0,0,.06); overflow:hidden; }
+.assign-row { display:grid; grid-template-columns:90px 100px 90px 1fr; gap:8px; padding:9px 14px; border-bottom:1px solid #f0f4f5; font-size:.85rem; align-items:center; }
+.assign-row:last-child { border-bottom:none; }
+.assign-row .dt { font-weight:700; color:var(--tupss-blue-dark); font-variant-numeric:tabular-nums; }
+.assign-row .store { font-size:.7rem; color:var(--ink-soft); text-transform:uppercase; letter-spacing:.04em; font-weight:600; }
+.assign-row .time { font-family:ui-monospace,Menlo,Consolas,monospace; font-weight:600; font-variant-numeric:tabular-nums; }
+.assign-row .exec-chip { display:inline-block; padding:3px 10px; border-radius:5px; font-weight:700; font-size:.75rem; }
+.exec-chase { background:var(--tupss-gold); color:#060000; }
+.exec-corey { background:#B3E5F2; color:#003040; }
+.exec-mike { background:var(--tupss-navy); color:#fff; }
+.toggles { display:flex; gap:8px; margin-bottom:10px; flex-wrap:wrap; }
+.toggles button { background:var(--card); border:1.5px solid #e0e0e0; padding:7px 13px; border-radius:7px; font-weight:600; font-size:.78rem; cursor:pointer; }
+.toggles button.active { background:var(--tupss-blue); color:#fff; border-color:var(--tupss-blue); }
+.rules { background:var(--card); border-radius:10px; padding:12px 16px; border-left:4px solid var(--tupss-blue); font-size:.78rem; color:var(--ink-soft); line-height:1.6; margin-top:14px; }
+.rules strong { color:#060000; }
+.footnote { font-size:.7rem; color:var(--ink-soft); margin-top:14px; padding:10px 14px; background:var(--card); border-radius:8px; border-left:3px solid var(--tupss-blue); line-height:1.5; }
+</style>
+</head>
+<body>
+<div class="header">
+<div style="display:flex;align-items:center;gap:14px;">
+<span class="brand-tag">THE UPS STORE</span>
+<div>
+<h1>Executive Coverage</h1>
+<div class="sub">June 2026 · Mike / Chase / Corey covering OPEN shifts</div>
+</div>
+</div>
+<div class="meta">
+<div>Cross-store schedule fill — Tier 2</div>
+<div id="refreshStamp">Viewed —</div>
+</div>
+</div>
+
+<div class="counts">
+<div class="exec-card chase"><div class="who"><span class="chip">Chase</span><div><div class="lbl">Total shifts</div></div></div><div class="cnt" id="chaseCnt">—</div></div>
+<div class="exec-card corey"><div class="who"><span class="chip">Corey</span><div><div class="lbl">Total shifts</div></div></div><div class="cnt" id="coreyCnt">—</div></div>
+<div class="exec-card mike"><div class="who"><span class="chip">Mike</span><div><div class="lbl">Total shifts</div></div></div><div class="cnt" id="mikeCnt">—</div></div>
+</div>
+
+<div class="section-h">Assignments</div>
+<div class="toggles" id="storeFilter">
+<button class="active" data-store="all">All stores</button>
+<button data-store="2335">Suburban #2335</button>
+<button data-store="3368">Harmony #3368</button>
+<button data-store="3492">Bear #3492</button>
+</div>
+<div class="assigns" id="assigns"></div>
+
+<div class="rules">
+<strong>Rules in effect (v9, 2026-05-30):</strong><br/>
+• No exec covers weekends (Sat/Sun) — Tier 3 trainees or Tier 4 truly OPEN takes those slots.<br/>
+• Corey: M–F 11am+ only · time off honored 6/6, 6/7.<br/>
+• Mike: M–Thu 7am-4pm · no Fri/weekends · priority for Suburban morning shifts (5 min from store).<br/>
+• Chase: M–F 9am-5pm only.<br/>
+• Tenure-inverted assignment cascade: Chase (least tenure) first → Corey → Mike. Mike-Suburban-morning priority overrides.
+</div>
+<div class="footnote"><strong>Source:</strong> <code>exec_coverage_assignments.json</code>. Re-rendered on every audit --write-back.</div>
+
+<script>
+const STATIC_STATE = {
+  "month":"June 2026","year":2026,
+  "exec_counts":{"Chase":11,"Corey":5,"Mike":5},
+  "assignments":[
+    {"date":"2026-06-01","store":"2335","shift":"15-19","exec":"Corey"},
+    {"date":"2026-06-02","store":"2335","shift":"15-19","exec":"Corey"},
+    {"date":"2026-06-08","store":"2335","shift":"8-14","exec":"Mike"},
+    {"date":"2026-06-08","store":"2335","shift":"15-19","exec":"Corey"},
+    {"date":"2026-06-09","store":"2335","shift":"8-14","exec":"Mike"},
+    {"date":"2026-06-09","store":"2335","shift":"12-16","exec":"Corey"},
+    {"date":"2026-06-10","store":"3368","shift":"8-12","exec":"Mike"},
+    {"date":"2026-06-10","store":"3368","shift":"15-19","exec":"Corey"},
+    {"date":"2026-06-12","store":"2335","shift":"15-19","exec":"Corey"},
+    {"date":"2026-06-15","store":"2335","shift":"8-14","exec":"Mike"},
+    {"date":"2026-06-15","store":"2335","shift":"15-19","exec":"Corey"},
+    {"date":"2026-06-16","store":"3368","shift":"15-19","exec":"Chase"},
+    {"date":"2026-06-17","store":"3368","shift":"15-19","exec":"Chase"},
+    {"date":"2026-06-18","store":"3368","shift":"15-19","exec":"Chase"},
+    {"date":"2026-06-19","store":"2335","shift":"12-19","exec":"Corey"},
+    {"date":"2026-06-22","store":"2335","shift":"8-14","exec":"Mike"},
+    {"date":"2026-06-22","store":"3368","shift":"15-19","exec":"Chase"},
+    {"date":"2026-06-23","store":"3368","shift":"15-19","exec":"Chase"},
+    {"date":"2026-06-24","store":"3368","shift":"15-19","exec":"Chase"},
+    {"date":"2026-06-25","store":"3368","shift":"15-19","exec":"Chase"},
+    {"date":"2026-06-26","store":"2335","shift":"12-19","exec":"Corey"},
+    {"date":"2026-06-29","store":"2335","shift":"13-19","exec":"Chase"},
+    {"date":"2026-06-30","store":"3368","shift":"15-19","exec":"Chase"}
+  ]
+};
+const STORE_NAMES = {"2335":"Suburban","3368":"Harmony","3492":"Bear"};
+
+document.getElementById("chaseCnt").textContent = STATIC_STATE.exec_counts.Chase;
+document.getElementById("coreyCnt").textContent = STATIC_STATE.exec_counts.Corey;
+document.getElementById("mikeCnt").textContent = STATIC_STATE.exec_counts.Mike;
+document.getElementById("refreshStamp").textContent = "Viewed " + new Date().toLocaleString("en-US", { weekday:"short", month:"short", day:"numeric", hour:"numeric", minute:"2-digit" });
+
+let activeStore = "all";
+function fmt(d) { const x = new Date(d+"T12:00:00"); return x.toLocaleDateString("en-US",{weekday:"short",month:"numeric",day:"numeric"}); }
+function render() {
+  const list = STATIC_STATE.assignments.filter(a => activeStore === "all" || a.store === activeStore);
+  list.sort((a,b) => a.date < b.date ? -1 : a.date > b.date ? 1 : 0);
+  document.getElementById("assigns").innerHTML = list.map(a =>
+    `<div class="assign-row"><span class="dt">${fmt(a.date)}</span><span class="store">${STORE_NAMES[a.store]} #${a.store}</span><span class="time">${a.shift}</span><span><span class="exec-chip exec-${a.exec.toLowerCase()}">${a.exec}</span></span></div>`
+  ).join("");
+}
+document.querySelectorAll("#storeFilter button").forEach(b => b.addEventListener("click", () => {
+  document.querySelectorAll("#storeFilter button").forEach(x => x.classList.remove("active"));
+  b.classList.add("active");
+  activeStore = b.dataset.store;
+  render();
+}));
+render();
+</script>
+</body>
+</html>
