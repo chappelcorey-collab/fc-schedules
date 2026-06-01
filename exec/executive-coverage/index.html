@@ -1,4 +1,13 @@
-<!DOCTYPE html><html lang="en"><head>
+<!DOCTYPE html><script type="application/json" id="cowork-artifact-meta">
+{
+  "name": "Executive Coverage",
+  "schemaVersion": 1,
+  "description": "FC Franchise exec cross-store coverage (Tier 2). Mirrors live exec_coverage_assignments.json from Schedule (1). Refreshed on every audit --write-back.",
+  "mcpTools": [],
+  "mcpServerNames": []
+}
+</script>
+<html lang="en"><head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>Executive Coverage — FC Franchise</title>
@@ -84,36 +93,45 @@ body { font:14px/1.45 -apple-system, BlinkMacSystemFont, "SF Pro Display","Segoe
 • Chase: M–F 9am-5pm only.<br/>
 • Tenure-inverted assignment cascade: Chase (least tenure) first → Corey → Mike. Mike-Suburban-morning priority overrides.
 </div>
-<div class="footnote"><strong>Source:</strong> <code>exec_coverage_assignments.json</code>. Re-rendered on every audit --write-back.</div>
+<div class="footnote"><strong>Source:</strong> <code>exec_coverage_assignments.json</code> · Generated 2026-06-01 · Re-rendered on every audit --write-back.</div>
 
 <script>
 const STATIC_STATE = {
   "month":"June 2026","year":2026,
-  "exec_counts":{"Chase":11,"Corey":5,"Mike":5},
+  "generated":"2026-06-01T15:18:04",
+  "exec_counts":{"Chase":11,"Corey":15,"Mike":5},
   "assignments":[
-    {"date":"2026-06-01","store":"2335","shift":"15-19","exec":"Corey"},
     {"date":"2026-06-02","store":"2335","shift":"15-19","exec":"Corey"},
+    {"date":"2026-06-03","store":"3492","shift":"12-16","exec":"Chase"},
+    {"date":"2026-06-04","store":"3492","shift":"12-16","exec":"Chase"},
+    {"date":"2026-06-05","store":"3492","shift":"12-16","exec":"Chase"},
+    {"date":"2026-06-05","store":"3492","shift":"15.5-19","exec":"Corey"},
     {"date":"2026-06-08","store":"2335","shift":"8-14","exec":"Mike"},
     {"date":"2026-06-08","store":"2335","shift":"15-19","exec":"Corey"},
     {"date":"2026-06-09","store":"2335","shift":"8-14","exec":"Mike"},
     {"date":"2026-06-09","store":"2335","shift":"12-16","exec":"Corey"},
     {"date":"2026-06-10","store":"3368","shift":"8-12","exec":"Mike"},
     {"date":"2026-06-10","store":"3368","shift":"15-19","exec":"Corey"},
+    {"date":"2026-06-10","store":"3492","shift":"12-16","exec":"Chase"},
+    {"date":"2026-06-11","store":"3492","shift":"12-16","exec":"Chase"},
     {"date":"2026-06-12","store":"2335","shift":"15-19","exec":"Corey"},
+    {"date":"2026-06-12","store":"3368","shift":"12-16","exec":"Chase"},
     {"date":"2026-06-15","store":"2335","shift":"8-14","exec":"Mike"},
     {"date":"2026-06-15","store":"2335","shift":"15-19","exec":"Corey"},
-    {"date":"2026-06-16","store":"3368","shift":"15-19","exec":"Chase"},
-    {"date":"2026-06-17","store":"3368","shift":"15-19","exec":"Chase"},
-    {"date":"2026-06-18","store":"3368","shift":"15-19","exec":"Chase"},
+    {"date":"2026-06-16","store":"2335","shift":"15-19","exec":"Corey"},
     {"date":"2026-06-19","store":"2335","shift":"12-19","exec":"Corey"},
+    {"date":"2026-06-19","store":"3492","shift":"12-16","exec":"Chase"},
     {"date":"2026-06-22","store":"2335","shift":"8-14","exec":"Mike"},
-    {"date":"2026-06-22","store":"3368","shift":"15-19","exec":"Chase"},
-    {"date":"2026-06-23","store":"3368","shift":"15-19","exec":"Chase"},
-    {"date":"2026-06-24","store":"3368","shift":"15-19","exec":"Chase"},
-    {"date":"2026-06-25","store":"3368","shift":"15-19","exec":"Chase"},
+    {"date":"2026-06-22","store":"2335","shift":"13-19","exec":"Corey"},
+    {"date":"2026-06-22","store":"3492","shift":"12-16.5","exec":"Chase"},
+    {"date":"2026-06-23","store":"2335","shift":"12-16","exec":"Chase"},
+    {"date":"2026-06-23","store":"2335","shift":"15-19","exec":"Corey"},
+    {"date":"2026-06-24","store":"3368","shift":"15-19","exec":"Corey"},
+    {"date":"2026-06-24","store":"3492","shift":"12-16","exec":"Chase"},
+    {"date":"2026-06-25","store":"3492","shift":"12-16","exec":"Chase"},
     {"date":"2026-06-26","store":"2335","shift":"12-19","exec":"Corey"},
-    {"date":"2026-06-29","store":"2335","shift":"13-19","exec":"Chase"},
-    {"date":"2026-06-30","store":"3368","shift":"15-19","exec":"Chase"}
+    {"date":"2026-06-29","store":"2335","shift":"13-19","exec":"Corey"},
+    {"date":"2026-06-30","store":"2335","shift":"15-19","exec":"Corey"}
   ]
 };
 const STORE_NAMES = {"2335":"Suburban","3368":"Harmony","3492":"Bear"};
