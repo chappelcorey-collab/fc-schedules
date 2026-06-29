@@ -2,7 +2,7 @@
 {
   "name": "Hiring Report",
   "schemaVersion": 1,
-  "description": "FC Franchise hiring report. Reflects latest hiring_report_state.json (audit + FINAL xlsx). Regenerated on every audit --write-back.",
+  "description": "FC Franchise hiring report. Snapshot mirror of https://chappelcorey-collab.github.io/fc-schedules/exec/hiring-report/ — refreshed every 4 hours.",
   "mcpTools": [],
   "mcpServerNames": []
 }
@@ -74,6 +74,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe 
 </style>
 </head>
 <body>
+<div id="cowork-updated-stamp" style="position:fixed;top:8px;right:10px;z-index:99999;background:rgba(0,111,136,.95);color:#fff;font:600 11px/1.1 -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;padding:5px 9px;border-radius:6px;box-shadow:0 1px 4px rgba(0,0,0,.25);pointer-events:none;letter-spacing:.01em;">Updated: Jun 28, 2026 8:06 PM</div>
 <div class="header">
 <div class="title-block">
 <span class="brand-tag">THE UPS STORE</span>
@@ -88,8 +89,8 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe 
 </div>
 </div>
 <div class="key-stats">
-<div class="stat ok"><div class="num">26</div><div class="label">Active Roster</div></div>
-<div class="stat warn"><div class="num">30</div><div class="label">OPEN Slots (June)</div></div>
+<div class="stat ok"><div class="num">25</div><div class="label">Active Roster</div></div>
+<div class="stat warn"><div class="num">33</div><div class="label">OPEN Slots (June)</div></div>
 <div class="stat warn"><div class="num">2</div><div class="label">June Departures</div></div>
 <div class="stat ok"><div class="num">0</div><div class="label">Truly Unfilled (post-cascade)</div></div>
 </div>
@@ -97,63 +98,62 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe 
 <div class="hire-grid">
 <div class="hire-card priority">
 <h3><span class="badge badge-priority">Priority</span>Harmony #3368</h3>
-<div class="meta">UNDERSTAFFED · PLH 30.1 pkg/hr (HIGH) · Steven departing 6/28 · 14 OPEN (3.3/wk) · Jacob near 35hr cap</div>
-<div class="ask">PT 16-20 hr/wk · weekday afternoons 14-19 (Tue/Wed/Fri closer)</div>
-<div class="why">Sustained hiring pressure: 14 OPEN shifts is well above the structural 2/wk baseline. Steven exit 6/28 cuts notary roster 7→6. Aireonna trainee window 12-4 doesn't close. A PT closer 11-7 replaces Steven's hours + restores 2 closers Tue/Wed/Fri.</div>
+<div class="meta">Steven Barry departing 6/28 · Tue volume ~1,900 pkg/wk · Sara summer schedule 6/16+ limits her Tue coverage</div>
+<div class="ask">PT 16-20 hr/wk · Closer 11-7 Tue/Wed/Fri</div>
+<div class="why">Steven's exit cuts Harmony notary count from 7→6. Aireonna (trainee 5/13) on track for notary training but needs cert timeline. A PT closer 11-7 replaces Steven's hours + restores 2 closers Tue/Wed/Fri.</div>
 </div>
 <div class="hire-card soon">
 <h3><span class="badge badge-soon">Soon</span>Bear #3492</h3>
-<div class="meta">UNDERSTAFFED · PLH 31.7 pkg/hr (HIGH) · Branden 37hr avg + Ant 34hr avg near cap · Anthony→Mgr 7/1</div>
-<div class="ask">FT 30 hr/wk · weekday afternoons 14-19 (closer-window cover)</div>
-<div class="why">2 employees consistently near weekly cap is the real signal: Branden + Ant are running hot to fill 12hr-cap windows. With Anthony moving to Mgr 7/1, Bear's CM seat collapses → need a 2nd FT to keep the 2-FT model. Kevin Jamaica 6/11-27 + Henry medical 6/13-7/13 create real Tue/Wed gap weeks 2-4.</div>
+<div class="meta">Kevin Jamaica 6/11-27 · Henry medical leave 6/13-7/13 · 2-FT model needs 1 more FT — Anthony now Bear CM (6/28)</div>
+<div class="ask">PT 15-20 hr/wk + FT consideration · 11-5 Tue/Wed/Sat (closer-window)</div>
+<div class="why">Anthony promoted to Bear CM 6/28 → Bear's 2nd-FT seat opens. Bear's 2-FT ideal means Colin stays FT + need a second FT. Kevin Jamaica covered by Brandon Collins this cycle but Henry's medical leave overlaps create real Tue/Wed gap weeks 2-4.</div>
 </div>
 <div class="hire-card watch">
 <h3><span class="badge badge-watch">Watch</span>Suburban #2335</h3>
-<div class="meta">BALANCED · PLH 9.1 pkg/hr · Jah job-hunting · Bryce underutilized (6hr / 18hr target, 33%)</div>
-<div class="ask">PT 12-15 hr/wk if Jah confirms departure · monitor Bryce 60 days</div>
-<div class="why">Suburban runs at 1 Mgr + 2 FT (Jayson + Omar) with 11 OPEN (2.6/wk — within range). Bryce sub-50% target for 3+ weeks → cut hours first; assess after 2 months. Branden likely transfers from Bear to Suburban CM if Jah exits. Adam notary cert pending when he turns 18.</div>
+<div class="meta">Jah departed 6/28 · Branden now Suburban CM (moved from Bear) · Sunday Adam-solo risk</div>
+<div class="ask">PT 12-15 hr/wk · Sun 10-3 + Sat closer 12-5</div>
+<div class="why">Suburban runs at 1 CM + 1 FT (Omar) ideal. Bryce Sat-only is fine. Sunday coverage gap (Adam usually solo) gets backfilled by execs but a permanent Sun PT eases the rotation. Adam's notary cert lands when he turns 18.</div>
 </div>
 </div>
 <div class="section-h"><span class="dot"></span>OPEN-Fill Cascade — June 2026</div>
 <div class="cov-grid">
-<div class="cov-cell"><div class="name">Tier 1 — Store Staff</div><div class="val">—</div><div class="detail">filled by available existing employees</div></div>
-<div class="cov-cell"><div class="name">Tier 2 — Exec Rotation</div><div class="val">31</div><div class="detail">Corey 15 · Chase 11 · Mike 5 (no exec weekends rule)</div></div>
-<div class="cov-cell"><div class="name">Tier 4 — Truly OPEN</div><div class="val" style="color:#b45309;">30</div><div class="detail">2335: 11 · 3368: 14 · 3492: 5</div></div>
+<div class="cov-cell"><div class="name">Tier 1 — Store Staff</div><div class="val">81</div><div class="detail">filled by available existing employees</div></div>
+<div class="cov-cell"><div class="name">Tier 2 — Exec Rotation</div><div class="val">21</div><div class="detail">Chase 11 · Corey 5 · Mike 5 (no exec weekends rule)</div></div>
+<div class="cov-cell"><div class="name">Tier 4 — Truly OPEN</div><div class="val" style="color:#b45309;">12</div><div class="detail">structural cap conflicts + Sun notary gaps</div></div>
 </div>
 <div class="section-h"><span class="dot"></span>Risk Callouts (for Chase's call list)</div>
 <ul class="risks">
-<li class="crit"><span class="who">Harmony PLH stretched</span><span class="what">6598 pkg / 220 weekly hrs = 30.1 pkg/labor-hr — HIGH. Steven exit 6/28 amplifies. PT 16-20hr closer is the priority hire.</span></li>
-<li class="crit"><span class="who">Bear cap pressure</span><span class="what">Branden 37hr avg + Ant 34hr avg both near OT-exempt 40hr cap; with Anthony→Mgr July → need 2nd FT to break the cap pressure. 6999 pkg / 220 weekly hrs = 31.7 pkg/labor-hr — HIGH.</span></li>
-<li class="med"><span class="who">Suburban Mgr succession</span><span class="what">Jah job-hunting; no confirmed date. Branden-from-Bear is the planned move. Chase floater absorbs interim Sun if Branden's transition timing slips.</span></li>
-<li class="med"><span class="who">Bryce underutilization</span><span class="what">6hr/wk avg vs 18hr target (33%) — cut hours first; if persists 2+ months, let go. Tenure 5mo.</span></li>
-<li class="ok"><span class="who">Trainee onboarding</span><span class="what">Aireonna (Harmony, 1 mo) + Kevin (Bear, 1 mo) both progressing. Aireonna 45% of target — extend trainee window; assess at 90 days before fire decision.</span></li>
+<li class="crit"><span class="who">Harmony Sun post-6/28</span><span class="what">Steven exit + Sara unavailable Sat → Aireonna trainee can't close → exec rotation absorbs 4 Sundays minimum. Hiring fix = a notary-trainable PT for Sun + weekday close.</span></li>
+<li class="med"><span class="who">Bear post-July Mgr swap</span><span class="what">Anthony promoted to Bear CM 6/28. Branden moved to Suburban CM. Bear's 2-FT model temporarily becomes 1-FT (Colin) → 8 weekday + 4 weekend gap weeks until 2nd FT hired.</span></li>
+<li class="med"><span class="who">Suburban Mgr — resolved</span><span class="what">Jah departed 6/28. Branden moved from Bear to Suburban CM (effective 6/28). Exec bridges #2335 mornings 6/29-6/30.</span></li>
+<li class="ok"><span class="who">Trainee onboarding</span><span class="what">Aireonna (Harmony, 0 mo) + Kevin (Bear, 0 mo) both showing modal 12-4 attendance. Aireonna passes 90 days 8/11; Kevin passes 8/13. Notary training kicks off month 3.</span></li>
 </ul>
 <div class="section-h"><span class="dot"></span>Active Roster Status</div>
 <div class="roster">
-<div class="store-roster"><h4>Suburban</h4><div class="id">#2335 · Fray Shipping LLC · BALANCED</div>
+<div class="store-roster"><h4>Suburban</h4><div class="id">#2335 · Fray Shipping LLC</div>
 <div class="role-row"><span class="role">Mgr</span><span class="ct">1</span></div>
-<div class="role-row"><span class="role">FT</span><span class="ct">2</span></div>
-<div class="role-row"><span class="role">PT</span><span class="ct">4</span></div>
-<div class="role-row"><span class="role">OOO all June</span><span class="ct">1</span></div>
+<div class="role-row"><span class="role">FT</span><span class="ct">1</span></div>
+<div class="role-row"><span class="role">PT</span><span class="ct">6</span></div>
+<div class="role-row"><span class="role">Departures pending</span><span class="ct">1</span></div>
 <div class="total"><span>Total active</span><span>8</span></div></div>
-<div class="store-roster"><h4>Harmony</h4><div class="id">#3368 · Fray Shipping II LLC · UNDERSTAFFED</div>
+<div class="store-roster"><h4>Harmony</h4><div class="id">#3368 · Fray Shipping II LLC</div>
 <div class="role-row"><span class="role">Mgr</span><span class="ct">1</span></div>
 <div class="role-row"><span class="role">FT</span><span class="ct">2</span></div>
 <div class="role-row"><span class="role">PT</span><span class="ct">5</span></div>
 <div class="role-row"><span class="role">Trainee</span><span class="ct">1</span></div>
 <div class="role-row"><span class="role">Departures June</span><span class="ct">2</span></div>
 <div class="total"><span>Total active</span><span>9</span></div></div>
-<div class="store-roster"><h4>Bear</h4><div class="id">#3492 · Fray Shipping III LLC · UNDERSTAFFED</div>
+<div class="store-roster"><h4>Bear</h4><div class="id">#3492 · Fray Shipping III LLC</div>
 <div class="role-row"><span class="role">Mgr</span><span class="ct">1</span></div>
 <div class="role-row"><span class="role">FT (CM)</span><span class="ct">2</span></div>
-<div class="role-row"><span class="role">PT</span><span class="ct">5</span></div>
+<div class="role-row"><span class="role">PT</span><span class="ct">4</span></div>
 <div class="role-row"><span class="role">Trainee</span><span class="ct">1</span></div>
-<div class="total"><span>Total active</span><span>9</span></div></div>
+<div class="total"><span>Total active</span><span>8</span></div></div>
 </div>
 <div class="footnote">
-<strong>Live freshness:</strong> Body counts reflect the latest finalized June 2026 schedule (audit verdict PASS · 177 fixes · 84 warnings · run 2026-06-01). Re-rendered on every audit --write-back.
+<strong>Live freshness:</strong> Body counts reflect the latest finalized June 2026 schedule (audit verdict PASS · 471 auto-fixes · 26 hiring/structural warnings). Re-rendered on every audit --write-back.
 <br/><br/>
-<strong>Usage:</strong> Chase calls applicants Monday morning, interviews Wednesday. Source: <code>hiring_report_state.json</code> + <code>Schedule_Archive/*_FINAL.xlsx</code>
+<strong>Usage:</strong> Chase calls applicants Monday morning, interviews Wednesday. Source data: <code>Schedule (1)/Schedule_Archive/*_FINAL.xlsx</code>
 </div>
 <script>
 document.getElementById("refreshStamp").textContent = "Viewed " + new Date().toLocaleString("en-US", { weekday: "short", month: "short", day: "numeric", hour: "numeric", minute: "2-digit" });

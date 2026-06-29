@@ -2,7 +2,7 @@
 {
   "name": "Executive Coverage",
   "schemaVersion": 1,
-  "description": "FC Franchise exec cross-store coverage (Tier 2). Mirrors live exec_coverage_assignments.json from Schedule (1). Refreshed on every audit --write-back.",
+  "description": "FC Franchise exec cross-store coverage (Tier 2). Snapshot mirror of https://chappelcorey-collab.github.io/fc-schedules/exec/executive-coverage/ — refreshed every 4 hours.",
   "mcpTools": [],
   "mcpServerNames": []
 }
@@ -56,12 +56,13 @@ body { font:14px/1.45 -apple-system, BlinkMacSystemFont, "SF Pro Display","Segoe
 </style>
 </head>
 <body>
+<div id="cowork-updated-stamp" style="position:fixed;top:8px;right:10px;z-index:99999;background:rgba(0,111,136,.95);color:#fff;font:600 11px/1.1 -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;padding:5px 9px;border-radius:6px;box-shadow:0 1px 4px rgba(0,0,0,.25);pointer-events:none;letter-spacing:.01em;">Updated: Jun 28, 2026 8:06 PM</div>
 <div class="header">
 <div style="display:flex;align-items:center;gap:14px;">
 <span class="brand-tag">THE UPS STORE</span>
 <div>
 <h1>Executive Coverage</h1>
-<div class="sub">June 2026 · Mike / Chase / Corey covering OPEN shifts</div>
+<div class="sub">June 2026 (forward-looking) · Mike / Chase / Corey covering OPEN shifts</div>
 </div>
 </div>
 <div class="meta">
@@ -93,44 +94,16 @@ body { font:14px/1.45 -apple-system, BlinkMacSystemFont, "SF Pro Display","Segoe
 • Chase: M–F 9am-5pm only.<br/>
 • Tenure-inverted assignment cascade: Chase (least tenure) first → Corey → Mike. Mike-Suburban-morning priority overrides.
 </div>
-<div class="footnote"><strong>Source:</strong> <code>exec_coverage_assignments.json</code> · Generated 2026-06-01 · Re-rendered on every audit --write-back.</div>
+<div class="footnote"><strong>Source:</strong> <code>exec_coverage_assignments.json</code>. Re-rendered on every audit --write-back.</div>
 
 <script>
 const STATIC_STATE = {
   "month":"June 2026","year":2026,
-  "generated":"2026-06-01T15:18:04",
-  "exec_counts":{"Chase":11,"Corey":15,"Mike":5},
+  "exec_counts":{"Chase": 0, "Corey": 2, "Mike": 2},
   "assignments":[
-    {"date":"2026-06-02","store":"2335","shift":"15-19","exec":"Corey"},
-    {"date":"2026-06-03","store":"3492","shift":"12-16","exec":"Chase"},
-    {"date":"2026-06-04","store":"3492","shift":"12-16","exec":"Chase"},
-    {"date":"2026-06-05","store":"3492","shift":"12-16","exec":"Chase"},
-    {"date":"2026-06-05","store":"3492","shift":"15.5-19","exec":"Corey"},
-    {"date":"2026-06-08","store":"2335","shift":"8-14","exec":"Mike"},
-    {"date":"2026-06-08","store":"2335","shift":"15-19","exec":"Corey"},
-    {"date":"2026-06-09","store":"2335","shift":"8-14","exec":"Mike"},
-    {"date":"2026-06-09","store":"2335","shift":"12-16","exec":"Corey"},
-    {"date":"2026-06-10","store":"3368","shift":"8-12","exec":"Mike"},
-    {"date":"2026-06-10","store":"3368","shift":"15-19","exec":"Corey"},
-    {"date":"2026-06-10","store":"3492","shift":"12-16","exec":"Chase"},
-    {"date":"2026-06-11","store":"3492","shift":"12-16","exec":"Chase"},
-    {"date":"2026-06-12","store":"2335","shift":"15-19","exec":"Corey"},
-    {"date":"2026-06-12","store":"3368","shift":"12-16","exec":"Chase"},
-    {"date":"2026-06-15","store":"2335","shift":"8-14","exec":"Mike"},
-    {"date":"2026-06-15","store":"2335","shift":"15-19","exec":"Corey"},
-    {"date":"2026-06-16","store":"2335","shift":"15-19","exec":"Corey"},
-    {"date":"2026-06-19","store":"2335","shift":"12-19","exec":"Corey"},
-    {"date":"2026-06-19","store":"3492","shift":"12-16","exec":"Chase"},
-    {"date":"2026-06-22","store":"2335","shift":"8-14","exec":"Mike"},
-    {"date":"2026-06-22","store":"2335","shift":"13-19","exec":"Corey"},
-    {"date":"2026-06-22","store":"3492","shift":"12-16.5","exec":"Chase"},
-    {"date":"2026-06-23","store":"2335","shift":"12-16","exec":"Chase"},
-    {"date":"2026-06-23","store":"2335","shift":"15-19","exec":"Corey"},
-    {"date":"2026-06-24","store":"3368","shift":"15-19","exec":"Corey"},
-    {"date":"2026-06-24","store":"3492","shift":"12-16","exec":"Chase"},
-    {"date":"2026-06-25","store":"3492","shift":"12-16","exec":"Chase"},
-    {"date":"2026-06-26","store":"2335","shift":"12-19","exec":"Corey"},
+    {"date":"2026-06-29","store":"2335","shift":"8-16","exec":"Mike"},
     {"date":"2026-06-29","store":"2335","shift":"13-19","exec":"Corey"},
+    {"date":"2026-06-30","store":"2335","shift":"8-16","exec":"Mike"},
     {"date":"2026-06-30","store":"2335","shift":"15-19","exec":"Corey"}
   ]
 };

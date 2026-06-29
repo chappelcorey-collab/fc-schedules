@@ -2,7 +2,7 @@
 {
   "name": "Comprehensive Schedule",
   "schemaVersion": 1,
-  "description": "FC Franchise comprehensive schedule. Reflects most recent FINAL xlsx + open_shifts_current.json. Regenerated on every audit --write-back.",
+  "description": "FC Franchise comprehensive schedule. Snapshot mirror of https://chappelcorey-collab.github.io/fc-schedules/exec/comprehensive-schedule/ — refreshed every 4 hours.",
   "mcpTools": [],
   "mcpServerNames": []
 }
@@ -47,6 +47,7 @@ body { font:14px/1.45 -apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe U
 </style>
 </head>
 <body>
+<div id="cowork-updated-stamp" style="position:fixed;top:8px;right:10px;z-index:99999;background:rgba(0,111,136,.95);color:#fff;font:600 11px/1.1 -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;padding:5px 9px;border-radius:6px;box-shadow:0 1px 4px rgba(0,0,0,.25);pointer-events:none;letter-spacing:.01em;">Updated: Jun 28, 2026 8:06 PM</div>
 <div class="header">
 <div style="display:flex;align-items:center;gap:14px;">
 <span class="brand-tag">THE UPS STORE</span>
@@ -62,8 +63,8 @@ body { font:14px/1.45 -apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe U
 </div>
 
 <div class="summary">
-<h4>June 2026 verdict — PASS · 177 fixes · 84 warnings (audit 2026-06-01)</h4>
-<p>Bulletproof audit completed clean. Warnings are visible structural signals (availability gaps, NO_SOLO at narrow windows, split-shift avoidance flags, notary floor) all surfaced for review — no silent gaps. 30 OPEN shifts across all 3 stores; execs covering 31 slots.</p>
+<h4>June 2026 verdict — PASS · 471 auto-fixes · 26 warnings</h4>
+<p>Bulletproof audit completed clean. The 26 warnings are visible hiring signals + structural cap conflicts (Sun notary gap at Suburban, Harmony weekend bodies), all surfaced for review — none are silent gaps.</p>
 </div>
 
 <div class="section-h">Per-Store Snapshot</div>
@@ -73,17 +74,17 @@ body { font:14px/1.45 -apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe U
 <div class="id">#2335 · Fray Shipping LLC</div>
 <div class="stats">
 <div class="stat-item"><div class="stat-num">8</div><div class="stat-lbl">Active roster</div></div>
-<div class="stat-item"><div class="stat-num">11</div><div class="stat-lbl">June OPEN</div></div>
+<div class="stat-item"><div class="stat-num">10</div><div class="stat-lbl">June OPEN</div></div>
 </div>
 <div class="roster-list">
-<div class="row"><span class="nm">Jah</span><span class="ten">Mgr · 35mo · 176h</span></div>
-<div class="row"><span class="nm">Jayson</span><span class="ten">FT · 4mo · 160h</span></div>
-<div class="row"><span class="nm">Omar</span><span class="ten">FT · 21mo · 109h</span></div>
-<div class="row"><span class="nm">Adam</span><span class="ten">PT · 17mo · 47h</span></div>
-<div class="row"><span class="nm">Dayne</span><span class="ten">PT · 6mo · 32h</span></div>
-<div class="row"><span class="nm">Dyllan</span><span class="ten">PT · 2mo · 29h</span></div>
-<div class="row"><span class="nm">Bryce</span><span class="ten">PT · 5mo · 18h</span></div>
-<div class="row"><span class="nm">Danny</span><span class="ten">PT · OOO all June</span></div>
+<div class="row"><span class="nm">Branden</span><span class="ten">Mgr · 63mo</span></div>
+<div class="row"><span class="nm">Omar</span><span class="ten">FT · 20mo</span></div>
+<div class="row"><span class="nm">Jayson</span><span class="ten">FT · 3mo</span></div>
+<div class="row"><span class="nm">Adam</span><span class="ten">PT · 16mo</span></div>
+<div class="row"><span class="nm">Dayne</span><span class="ten">PT · 5mo</span></div>
+<div class="row"><span class="nm">Bryce</span><span class="ten">PT · 4mo</span></div>
+<div class="row"><span class="nm">Dyllan</span><span class="ten">PT · 1mo</span></div>
+<div class="row"><span class="nm">Danny</span><span class="ten">PT · OOO 8/25</span></div>
 </div>
 <a class="live" href="../../Suburban/" target="_blank">↗ Live mobile view</a>
 </div>
@@ -96,15 +97,15 @@ body { font:14px/1.45 -apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe U
 <div class="stat-item"><div class="stat-num">14</div><div class="stat-lbl">June OPEN</div></div>
 </div>
 <div class="roster-list">
-<div class="row"><span class="nm">Sara</span><span class="ten">Mgr · 52mo · 148h</span></div>
-<div class="row"><span class="nm">Yaya</span><span class="ten">FT · 40mo · 129h</span></div>
-<div class="row"><span class="nm">Jacob</span><span class="ten">FT · 16mo · 174h</span></div>
-<div class="row"><span class="nm">Steven</span><span class="ten">PT · 7mo · 149h (departs 6/28)</span></div>
-<div class="row"><span class="nm">Thomas</span><span class="ten">PT · 25mo · 102h</span></div>
-<div class="row"><span class="nm">Journi</span><span class="ten">PT · 8mo · 113h</span></div>
-<div class="row"><span class="nm">Jackson</span><span class="ten">PT · 8mo · 60h</span></div>
-<div class="row"><span class="nm">Aireonna</span><span class="ten">Trainee · 1mo · 48h</span></div>
-<div class="row"><span class="nm">Devon</span><span class="ten">PT · 6mo · 22h (departs 6/6)</span></div>
+<div class="row"><span class="nm">Sara</span><span class="ten">Mgr · 51mo</span></div>
+<div class="row"><span class="nm">Yaya</span><span class="ten">FT · 39mo</span></div>
+<div class="row"><span class="nm">Jacob</span><span class="ten">FT · 15mo</span></div>
+<div class="row"><span class="nm">Thomas</span><span class="ten">PT · 24mo</span></div>
+<div class="row"><span class="nm">Journi</span><span class="ten">PT · 7mo</span></div>
+<div class="row"><span class="nm">Jackson</span><span class="ten">PT · 7mo</span></div>
+<div class="row"><span class="nm">Steven</span><span class="ten">PT · departs 6/28</span></div>
+<div class="row"><span class="nm">Devon</span><span class="ten">PT · departs 6/6</span></div>
+<div class="row"><span class="nm">Aireonna</span><span class="ten">Trainee · 0mo</span></div>
 </div>
 <a class="live" href="../../Harmony/" target="_blank">↗ Live mobile view</a>
 </div>
@@ -113,19 +114,17 @@ body { font:14px/1.45 -apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe U
 <h3>Bear</h3>
 <div class="id">#3492 · Fray Shipping III LLC</div>
 <div class="stats">
-<div class="stat-item"><div class="stat-num">9</div><div class="stat-lbl">Active roster</div></div>
-<div class="stat-item"><div class="stat-num">5</div><div class="stat-lbl">June OPEN</div></div>
+<div class="stat-item"><div class="stat-num">7</div><div class="stat-lbl">Active roster</div></div>
+<div class="stat-item"><div class="stat-num">9</div><div class="stat-lbl">June OPEN</div></div>
 </div>
 <div class="roster-list">
-<div class="row"><span class="nm">Branden</span><span class="ten">Mgr · 64mo · 187h</span></div>
-<div class="row"><span class="nm">Ant</span><span class="ten">FT · 58mo · 170h (Mgr trial 7/1)</span></div>
-<div class="row"><span class="nm">Colin</span><span class="ten">FT · 8mo · 188h</span></div>
-<div class="row"><span class="nm">Brandon</span><span class="ten">PT · 37mo · 140h</span></div>
-<div class="row"><span class="nm">Julz</span><span class="ten">PT · 24mo · 104h</span></div>
-<div class="row"><span class="nm">RJ</span><span class="ten">PT · 3mo · 88h</span></div>
-<div class="row"><span class="nm">Henry</span><span class="ten">PT · 5mo · 55h (medical 6/13-7/13)</span></div>
-<div class="row"><span class="nm">BR</span><span class="ten">PT · 13h</span></div>
-<div class="row"><span class="nm">Kevin</span><span class="ten">Trainee · 1mo · 8h (Jamaica 6/11-27)</span></div>
+<div class="row"><span class="nm">Anthony</span><span class="ten">Mgr · 57mo</span></div>
+<div class="row"><span class="nm">Colin</span><span class="ten">FT · 7mo</span></div>
+<div class="row"><span class="nm">Brandon</span><span class="ten">PT · 36mo</span></div>
+<div class="row"><span class="nm">Julz</span><span class="ten">PT · 23mo</span></div>
+<div class="row"><span class="nm">Henry</span><span class="ten">PT · medical 6/13-7/13</span></div>
+<div class="row"><span class="nm">RJ</span><span class="ten">PT · 2mo</span></div>
+<div class="row"><span class="nm">Kevin</span><span class="ten">Trainee · Jamaica 6/11-27</span></div>
 </div>
 <a class="live" href="../../Bear/" target="_blank">↗ Live mobile view</a>
 </div>
@@ -135,7 +134,7 @@ body { font:14px/1.45 -apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe U
 <strong>June time-off integrated:</strong>
 <ul>
 <li>Suburban: Bryce 6/13 · Omar 6/9 + 6/12-14 + 6/28-7/1 · Danny all month · Dyllan 6/1-9 · Dayne 6/2-3 + 6/8-26 · Adam Tue/Fri/Sun</li>
-<li>Harmony: Sara 6/12-15 + 6/19 (NY) · Steven 6/13-15 · Devon 6/7+ · Jacob 6/4 + 6/10 · Jackson 6/8-13 + 6/20 · Journi 6/18 + 6/20-28</li>
+<li>Harmony: Sara 6/12-15 + 6/19 (NY) · Steven 6/13-15 · Devon 6/7+ · Jacob 6/4 + 6/10 · Jackson 6/8-13 + 6/20 · Journi 6/18 + 6/20-28 · Henry 6/13-7/13</li>
 <li>Bear: Kevin 6/11-27 · Julz 6/3-8 · Henry 6/13-7/13 · RJ 6/8-13 + 6/20-27</li>
 </ul>
 <br/>
@@ -149,7 +148,7 @@ body { font:14px/1.45 -apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe U
 </ul>
 </div>
 
-<div class="footnote"><strong>Source:</strong> <code>Schedule (1)/Schedule_Archive/*_FINAL.xlsx</code> · <code>open_shifts_current.json</code> generated 2026-06-01 · Re-rendered on every audit --write-back.</div>
+<div class="footnote"><strong>Source:</strong> <code>Schedule (1)/Schedule_Archive/*_FINAL.xlsx</code> · Re-rendered on every audit --write-back.</div>
 
 <script>
 document.getElementById("refreshStamp").textContent = "Viewed " + new Date().toLocaleString("en-US", { weekday:"short", month:"short", day:"numeric", hour:"numeric", minute:"2-digit" });
