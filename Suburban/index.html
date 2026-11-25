@@ -56,6 +56,43 @@ body { background: #f7f7f8; color: #1a1a1a; font: 15px/1.4 -apple-system, BlinkM
 .fc-req { display: block; max-width: 616px; margin: 10px auto 0; background: white; border: 1.5px solid #009CBD; color: #007a96; font-weight: 700; font-size: 15px; padding: 12px 14px; border-radius: 12px; text-decoration: none; text-align: center; box-shadow: 0 1px 3px rgba(0,0,0,.06); }
 .fc-req small { display: block; font-weight: 500; font-size: 12px; color: #64748b; margin-top: 2px; }
 @media (max-width: 380px) { .fc-store { font-size: 20px; } .fc-day-header { font-size: 14px; } .fc-shift { font-size: 13.5px; padding: 4px 12px; } }
+
+.fcv-tabs{display:flex;gap:4px;background:#e9eef3;border-radius:10px;padding:3px}
+.fcv-tabs button{flex:1;border:0;background:none;border-radius:8px;padding:8px 4px;font-weight:800;font-size:13px;color:#475569;cursor:pointer}
+.fcv-tabs button.on{background:#fff;color:#007a96;box-shadow:0 1px 2px rgba(0,0,0,.12)}
+.fcv-navbar{display:flex;align-items:center;justify-content:space-between;margin:10px 0 8px;font-weight:800;font-size:15px}
+.fcv-nb{border:1.5px solid #e2e8f0;background:#fff;border-radius:9px;width:42px;height:36px;font-size:22px;line-height:1;color:#007a96;cursor:pointer}
+.fcv-nb:disabled{opacity:.3}
+.fcv-wk{overflow-x:auto;background:#fff;border-radius:12px;box-shadow:0 1px 3px rgba(0,0,0,.06);-webkit-overflow-scrolling:touch}
+.fcv-wk table{border-collapse:collapse;width:100%;min-width:540px;font-size:12px}
+.fcv-wk th,.fcv-wk td{border-bottom:1px solid #eef2f6;padding:4px 2px;text-align:center;vertical-align:top}
+.fcv-wk thead th{font-weight:600;color:#64748b;font-size:11px;background:#fff;line-height:1.2}
+.fcv-wk thead th b{font-size:14px;color:#1a1a1a}
+.fcv-wk thead th.t,.fcv-wk thead th.t b{color:#009CBD}
+.fcv-wk tbody th{text-align:left;font-weight:700;white-space:nowrap;position:sticky;left:0;background:#fff;padding:6px 6px 6px 10px;font-size:12.5px;z-index:1}
+.fcv-wk td.t{background:#f3fbfd}
+.fcv-b{display:block;width:100%;border:0;border-radius:6px;background:#e6f6fa;color:#005a70;font:700 11px/1.2 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;padding:4px 1px;margin:1px 0;cursor:default}
+.fcv-b.pickable{cursor:pointer}
+.fcv-b.open{background:#FFE5E5;color:#C00000}
+.fcv-b.x-chase{background:#FFB500;color:#1a1a1a}
+.fcv-b.x-corey{background:#B3E5F2;color:#003040}
+.fcv-b.x-mike{background:#006580;color:#fff}
+.fcv-b.sel{background:#009CBD;color:#fff;box-shadow:0 0 0 2px #00546a inset}
+.fcv-none{color:#94a3b8;font-style:italic;padding:18px!important}
+.fcv-mo{background:#fff;border-radius:12px;padding:8px;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.fcv-dow,.fcv-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:3px}
+.fcv-dow span{text-align:center;font-size:11px;font-weight:700;color:#94a3b8;padding-bottom:3px}
+.fcv-c{min-height:56px;border:1px solid #eef2f6;border-radius:8px;background:#fff;padding:3px 3px 4px;text-align:left;font:inherit;color:inherit;display:flex;flex-direction:column;gap:1px;overflow:hidden;cursor:pointer}
+.fcv-c[disabled]{cursor:default}
+.fcv-c .n{font-size:12px;font-weight:700;color:#334155}
+.fcv-c small{display:block;font-size:10px;line-height:1.15;color:#007a96;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.fcv-c small.o{color:#C00000}
+.fcv-c.t{border-color:#009CBD;box-shadow:0 0 0 1px #009CBD inset}
+.fcv-c.pad{border:0;background:none;cursor:default}
+.fcv-c.dim{opacity:.38}
+.fcv-c.has{background:#f0fafc}
+.fcv-c.sel{background:#009CBD;border-color:#009CBD}
+.fcv-c.sel .n,.fcv-c.sel small{color:#fff}
 </style>
 </head>
 <body>
@@ -69,6 +106,9 @@ body { background: #f7f7f8; color: #1a1a1a; font: 15px/1.4 -apple-system, BlinkM
 <div style="padding:0 12px"><a class="fc-req" href="../requests/?store=Suburban">Availability, time off &amp; shift swaps &rarr;<small>Keep your availability up to date - it&#39;s what the schedule is built from</small></a></div>
 <div class="fc-exec-legend"><strong>Exec coverage:</strong><span class="fc-exec-chip chase">Chase</span><span class="fc-exec-chip corey">Corey</span><span class="fc-exec-chip mike">Mike</span></div>
 <div id="banner"></div>
+<div class="fc-days" style="padding-bottom:0"><div class="fcv-tabs" id="fcvTabs"><button type="button" data-v="day">Day</button><button type="button" data-v="week">Week</button><button type="button" data-v="month">Month</button></div></div>
+<div id="fcvAlt" class="fc-days" style="display:none;padding-top:0"><div id="fcvNav" class="fcv-navbar"></div><div id="fcvBody"></div><p style="font-size:11px;color:#94a3b8;text-align:center;margin:10px 0 0" id="fcvHint"></p></div>
+
 <div id="days" class="fc-days"></div>
 <div class="fc-footer">Past days drop off automatically &middot; <strong>FC Franchise</strong></div>
 <script>
@@ -117,7 +157,7 @@ function render() {
     const dow = d.toLocaleDateString(undefined, { weekday: "short" });
     const monthDay = d.toLocaleDateString(undefined, { month: "numeric", day: "numeric" });
     const cls = "fc-day" + (isToday ? " today" : "") + (isWeekend ? " weekend" : "");
-    html += '<div class="' + cls + '"><div class="fc-day-header"><span><span class="fc-dow">' + dow + '</span><span class="fc-date">' + monthDay + '</span></span></div><div class="fc-shifts">';
+    html += '<div class="' + cls + '" data-d="' + dateStr + '"><div class="fc-day-header"><span><span class="fc-dow">' + dow + '</span><span class="fc-date">' + monthDay + '</span></span></div><div class="fc-shifts">';
     if (shifts.length === 0 && outs.length === 0) { html += '<div class="fc-shift" style="color:#94a3b8;font-style:italic;justify-content:center;">closed / no shifts</div>'; }
     for (const s of shifts) {
       const upper = (s.name || "").toUpperCase();
@@ -139,11 +179,81 @@ function render() {
     if (todayEl) setTimeout(() => todayEl.scrollIntoView({ behavior: "smooth", block: "start" }), 60);
   }
 }
-document.getElementById("search").addEventListener("input", render);
+
+const FCV=(()=>{
+const pad=n=>String(n).padStart(2,"0");
+const ymd=d=>d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate());
+const parse=s=>{const[y,m,d]=s.split("-").map(Number);return new Date(y,m-1,d)};
+const add=(s,n)=>{const d=parse(s);d.setDate(d.getDate()+n);return ymd(d)};
+const today=()=>ymd(new Date());
+const monday=s=>add(s,-((parse(s).getDay()+6)%7));
+const addMonth=(ym,k)=>{const[y,m]=ym.split("-").map(Number);const d=new Date(y,m-1+k,1);return d.getFullYear()+"-"+pad(d.getMonth()+1)};
+const ft=h=>{h=+h;const hh=Math.floor(h),mm=Math.round((h-hh)*60);return(hh%12||12)+(mm?":"+pad(mm):"")+(hh<12?"a":"p")};
+const kind=n=>{const u=(n||"").toUpperCase();return u==="OPEN"?"open":u==="CHASE"?"x-chase":u==="COREY"?"x-corey":(u==="MIKE"||u==="MICHAEL")?"x-mike":""};
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const dl=(s,o)=>parse(s).toLocaleDateString(undefined,o);
+function week(el,data,o){
+  const days=[...Array(7)].map((_,i)=>add(o.start,i)),t=today(),rows={},first={};
+  days.forEach((ds,i)=>(data[ds]||[]).forEach(s=>{if(s.kind==="OUT"||(o.filter&&!o.filter(s,ds)))return;
+    (rows[s.name]=rows[s.name]||[[],[],[],[],[],[],[]])[i].push(s);first[s.name]=Math.min(first[s.name]??99,i*100+s.start)}));
+  const names=Object.keys(rows).sort((a,b)=>(a.toUpperCase()==="OPEN")-(b.toUpperCase()==="OPEN")||first[a]-first[b]||a.localeCompare(b));
+  let h='<div class="fcv-wk"><table><thead><tr><th></th>'+days.map(ds=>'<th class="'+(ds===t?"t":"")+'">'+dl(ds,{weekday:"short"})+'<br><b>'+parse(ds).getDate()+'</b></th>').join("")+'</tr></thead><tbody>';
+  names.forEach(n=>{h+='<tr><th>'+esc(n)+'</th>';rows[n].forEach((ss,i)=>{h+='<td class="'+(days[i]===t?"t":"")+'">'+ss.map(s=>'<button type="button" class="fcv-b '+kind(n)+(o.pick?" pickable":"")+(o.sel&&o.sel(days[i],s)?" sel":"")+'" data-d="'+days[i]+'" data-s="'+s.start+'" data-e="'+s.end+'" data-n="'+esc(n)+'">'+ft(s.start)+'<br>'+ft(s.end)+'</button>').join("")+'</td>'});h+='</tr>'});
+  if(!names.length)h+='<tr><td colspan="8" class="fcv-none">'+(o.empty||"No shifts this week")+'</td></tr>';
+  el.innerHTML=h+'</tbody></table></div>';
+  if(o.pick)el.querySelectorAll(".fcv-b").forEach(b=>b.onclick=()=>o.pick(b.dataset.d,{name:b.dataset.n,start:+b.dataset.s,end:+b.dataset.e}));
+}
+function month(el,ym,o){
+  const[y,m]=ym.split("-").map(Number),first=new Date(y,m-1,1),t=today(),n=new Date(y,m,0).getDate();
+  let h='<div class="fcv-mo"><div class="fcv-dow">'+["Sun","Mon","Tue","Wed","Thu","Fri","Sat"].map(x=>'<span>'+x+'</span>').join("")+'</div><div class="fcv-grid">';
+  for(let i=0;i<first.getDay();i++)h+='<span class="fcv-c pad"></span>';
+  for(let d=1;d<=n;d++){const ds=y+"-"+pad(m)+"-"+pad(d),c=(o.cell&&o.cell(ds))||{},ok=o.click&&!c.off;
+    h+='<button type="button" class="fcv-c'+(ds===t?" t":"")+(c.cls?" "+c.cls:"")+'" data-d="'+ds+'"'+(ok?"":" disabled")+'><span class="n">'+d+'</span>'+(c.html||"")+'</button>'}
+  el.innerHTML=h+'</div></div>';
+  if(o.click)el.querySelectorAll(".fcv-c[data-d]:not([disabled])").forEach(b=>b.onclick=()=>o.click(b.dataset.d));
+}
+function nav(el,label,prev,next){el.innerHTML='<button type="button" class="fcv-nb" aria-label="Previous"'+(prev?"":" disabled")+'>&lsaquo;</button><span>'+label+'</span><button type="button" class="fcv-nb" aria-label="Next"'+(next?"":" disabled")+'>&rsaquo;</button>';
+  const b=el.querySelectorAll("button");if(prev)b[0].onclick=prev;if(next)b[1].onclick=next}
+return {pad,ymd,parse,add,today,monday,addMonth,ft,kind,esc,dl,week,month,nav};
+})();
+
+const VKEY="fc_view_"+STORE_ID, SB=STATIC_STATE.shifts_by_date, ALLD=Object.keys(SB).sort();
+let VIEW=localStorage.getItem(VKEY)||"day", WK=null, MO=null;
+const qv=new URLSearchParams(location.search).get("view"); if(["day","week","month"].includes(qv)) VIEW=qv;
+function _q(){return (document.getElementById("search").value||"").toLowerCase().trim()}
+function _f(s){const q=_q();return !q||(s.name||"").toLowerCase().includes(q)}
+function renderAll(){
+  try{document.getElementById("updated").textContent=new Date(STATIC_STATE.last_updated).toLocaleString(undefined,{month:"short",day:"numeric",hour:"numeric",minute:"2-digit"})}catch(e){}
+  document.querySelectorAll("#fcvTabs button").forEach(b=>b.classList.toggle("on",b.dataset.v===VIEW));
+  const days=document.getElementById("days"), alt=document.getElementById("fcvAlt");
+  if(VIEW==="day"||!ALLD.length){days.style.display="";alt.style.display="none";render();return}
+  days.style.display="none";alt.style.display="";
+  const t=FCV.today(), minD=ALLD[0], maxD=ALLD[ALLD.length-1], clamp=d=>d<minD?minD:d>maxD?maxD:d, navEl=document.getElementById("fcvNav"), body=document.getElementById("fcvBody");
+  if(VIEW==="week"){
+    if(!WK) WK=FCV.monday(clamp(t));
+    FCV.nav(navEl,"Week of "+FCV.dl(WK,{month:"short",day:"numeric"}),WK>minD?()=>{WK=FCV.add(WK,-7);renderAll()}:null,FCV.add(WK,6)<maxD?()=>{WK=FCV.add(WK,7);renderAll()}:null);
+    FCV.week(body,SB,{start:WK,filter:_f,empty:_q()?"No shifts for that name this week":"No shifts this week"});
+    document.getElementById("fcvHint").textContent="Swipe sideways to see the whole week.";
+  } else {
+    if(!MO) MO=clamp(t).slice(0,7);
+    FCV.nav(navEl,FCV.dl(MO+"-01",{month:"long",year:"numeric"}),MO>minD.slice(0,7)?()=>{MO=FCV.addMonth(MO,-1);renderAll()}:null,MO<maxD.slice(0,7)?()=>{MO=FCV.addMonth(MO,1);renderAll()}:null);
+    const q=_q();
+    FCV.month(body,MO,{cell:ds=>{
+        const all=SB[ds]; if(!all) return {cls:"dim",off:true};
+        const ss=all.filter(s=>s.kind!=="OUT"&&_f(s)), past=ds<t;
+        if(q) return {html:ss.map(s=>'<small>'+FCV.ft(s.start)+'-'+FCV.ft(s.end)+'</small>').join(""),cls:(ss.length?"has":"")+(past?" dim":""),off:past};
+        const open=ss.filter(s=>(s.name||"").toUpperCase()==="OPEN").length, n=ss.length-open;
+        return {html:(n?'<small>'+n+' on</small>':'')+(open?'<small class="o">'+open+' open</small>':''),cls:(n?"has":"")+(past?" dim":""),off:past}},
+      click:ds=>{VIEW="day";localStorage.setItem(VKEY,VIEW);renderAll();setTimeout(()=>{const el=document.querySelector('.fc-day[data-d="'+ds+'"]');if(el)el.scrollIntoView({behavior:"smooth",block:"start"})},120)}});
+    document.getElementById("fcvHint").textContent=q?"Showing shifts for \""+q+"\". Tap a day to see everyone.":"Tip: type your name above to see just your shifts. Tap a day for details.";
+  }
+}
+document.querySelectorAll("#fcvTabs button").forEach(b=>b.onclick=()=>{VIEW=b.dataset.v;localStorage.setItem(VKEY,VIEW);renderAll();window.scrollTo(0,0)});
+document.getElementById("search").addEventListener("input", renderAll);
 document.getElementById("search").value = localStorage.getItem(SEARCH_KEY) || "";
 try { document.getElementById("cowork-updated-stamp").textContent = "Updated: " + new Date(STATIC_STATE.last_updated).toLocaleString("en-US",{month:"short",day:"numeric",year:"numeric",hour:"numeric",minute:"2-digit"}); } catch(e){}
 async function _checkFresh(){try{const r=await fetch(location.pathname+"?_="+Date.now(),{cache:"no-store"});const t=await r.text();const m=t.match(/"last_updated":"([^"]+)"/);if(m&&m[1]!==STATIC_STATE.last_updated){location.reload();}}catch(e){}}
 document.addEventListener("visibilitychange",function(){if(!document.hidden)_checkFresh();});
-render();
+renderAll();
 </script>
 </body></html>
